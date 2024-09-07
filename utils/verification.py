@@ -5,6 +5,7 @@ from flask import url_for, render_template
 from flask_mail import Mail, Message
 
 
+mail = Mail()
 def send_verification_email(user):
     token = user.generate_token()
 
