@@ -2,9 +2,12 @@
 This module initializes the flask instance
 Initializes the configuration settings
 '''
-from flask import Flask
+from flask import Flask, register_blueprint
 from create_app import create_app
 from model import Users, db, bcrypt
+from routes.authentication import auth
+from routes.verification import verify
+from routes.reset import reset
 
 
 # create the app instance
@@ -12,6 +15,10 @@ app = create_app()
 
 db.init_app(app)
 bcrypt.init_app(app)
+
+app.register_blueprint(auth)
+app.register_blueprint(verify)
+app.register_blueprint(reset)
 
 def create_models():
     with app.app_context():
@@ -26,6 +33,7 @@ def create_models():
                 except Exception as e:
                     db.session.rollback()
 create_models()
+
 
 
 if __name__ == "__main__":
