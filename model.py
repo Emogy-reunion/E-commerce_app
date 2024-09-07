@@ -3,9 +3,12 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from itsdangerous import URLSafeTimedSerializer
 from flask_login import UserMixin
+from create_app import create_app
 
+app = create_app()
 db = SQLAlchemy()
 bcrypt = Bcrypt()
+
 serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 
 class Users(UserMixin, db.Model):
