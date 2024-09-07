@@ -2,12 +2,13 @@ from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from itsdangerous import URLSafeTimedSerializer
+from flask_login import UserMixin
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 
-class Users(db.Model):
+class Users(UserMixin, db.Model):
     """
     A representation of users table
     Each attribute corresponds to a column in the table
