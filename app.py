@@ -2,12 +2,13 @@
 This module initializes the flask instance
 Initializes the configuration settings
 '''
-from flask import Flask, register_blueprint
+from flask import Flask
 from create_app import create_app
 from model import Users, db, bcrypt
 from routes.authentication import auth
 from routes.verification import verify
-from routes.reset import reset
+from utils.verification import mail
+from flask_login import LoginManager
 
 
 # create the app instance
@@ -15,10 +16,16 @@ app = create_app()
 
 db.init_app(app)
 bcrypt.init_app(app)
+mail.init_app(app)
+loginmanager = LoginManager(app)
+loginmanager.login_view = 'login'
 
 app.register_blueprint(auth)
 app.register_blueprint(verify)
-app.register_blueprint(reset)
+
+@loginmanager.user_loader
+def load_user(user_id):
+    return db.session.get(Users, int(user_id))
 
 def create_models():
     with app.app_context():
