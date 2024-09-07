@@ -6,7 +6,8 @@ from flask import Flask
 from create_app import create_app
 from model import Users, db, bcrypt
 from routes.authentication import auth
-from routes.verification import verify, mail
+from routes.verification import verify
+from utils.verification import mail
 from routes.reset import reset
 from flask_login import LoginManager
 
