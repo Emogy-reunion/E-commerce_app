@@ -1,5 +1,10 @@
 from datetime import datetime
-from app import db
+from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
+
+db = SQLAlchemy()
+bcrypt = Bcrypt()
+
 
 
 class Users(db.Model):
@@ -18,8 +23,20 @@ class Users(db.Model):
     roles = db.Column(db.String(50), default='guest')
     verified = db.Column(db.Boolean, default=False)
 
-    def __init__(self, firstname, lastname, email):
-        self.firstname = firstname
-        self.lastname = lastname
+    def __init__(self, firstname, lastname, email, password):
+        self.first_name = firstname
+        self.last_name = lastname
         self.email = email
         self.set_password(password)
+
+    def set_password(self, password):
+        """
+        Hashes and stores the password
+        """
+        self.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
+
+    def check_password(self, password):
+        """
+        compares the user password and stored hash
+        """
+        return bcrypt.check_password_hash(self.password_hash, password)
