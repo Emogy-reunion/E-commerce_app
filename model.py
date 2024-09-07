@@ -20,13 +20,14 @@ class Users(db.Model):
     email = db.Column(db.String(50), unique=True, nullable=False)
     password_hash = db.Column(db.String(100), nullable=False)
     registered_on = db.Column(db.DateTime, default=datetime.utcnow)
-    roles = db.Column(db.String(50), default='guest')
+    role = db.Column(db.String(50), nullable=False)
     verified = db.Column(db.Boolean, default=False)
 
-    def __init__(self, firstname, lastname, email, password):
+    def __init__(self, firstname, lastname, email, password, role='guest'):
         self.first_name = firstname
         self.last_name = lastname
         self.email = email
+        self.role = role
         self.set_password(password)
 
     def set_password(self, password):
