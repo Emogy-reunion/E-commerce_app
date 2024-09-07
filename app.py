@@ -2,7 +2,7 @@
 This module initializes the flask instance
 Initializes the configuration settings
 '''
-from flask import Flask, register_blueprint
+from flask import Flask
 from create_app import create_app
 from model import Users, db, bcrypt
 from routes.authentication import auth
