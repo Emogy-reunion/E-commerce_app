@@ -22,7 +22,6 @@ loginmanager.login_view = 'login'
 
 app.register_blueprint(auth)
 app.register_blueprint(verify)
-app.register_blueprint(reset)
 
 @loginmanager.user_loader
 def load_user(user_id):
