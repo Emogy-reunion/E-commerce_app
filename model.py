@@ -51,7 +51,7 @@ class Users(db.Model):
     @staticmethod
     def verify_token(token):
         '''
-        reloads the token and verifies the user if the token is valid
+        deserializes the token and verifies the user if the token is valid
         '''
         try:
             data = serializer.loads(token, max_age=3600)
