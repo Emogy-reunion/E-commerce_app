@@ -6,7 +6,7 @@ from flask import redirect, url_for
 from flask_login import current_user
 
 
-def role_decorator(role):
+def role_required(role):
     '''
     role: the role required to access the route
     returns a decorator
