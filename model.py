@@ -26,6 +26,7 @@ class Users(UserMixin, db.Model):
     registered_on = db.Column(db.DateTime, default=datetime.utcnow)
     role = db.Column(db.String(50), nullable=False)
     verified = db.Column(db.Boolean, default=False)
+    sneakers = db.relationship('Sneakers', lazy=True, backref='user', cascade='all, delete-orphan')
 
     def __init__(self, firstname, lastname, email, password, role='guest'):
         self.first_name = firstname
@@ -63,3 +64,43 @@ class Users(UserMixin, db.Model):
         except Exception as e:
             return None
 
+class Sneakers(db.Model):
+    '''
+    stores the sneaker's collection
+    one user can have multiple uploads
+    '''
+    __tablename__ = 'sneakers'
+
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    name = db.Column(db.String(50), nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    images = db.relationship('Images', backref='sneaker', cascade='all, delete-orphan')
+
+    def __init__(self, name, price, description, user_id):
+        '''
+        initializes the table with data
+        '''
+        self.name = name
+        self.price = price
+        self.description = description
+        self.user_id = user_id
+
+class Images(db.Model):
+    '''
+    stores the sneaker's images
+    one sneaker can have multiple images
+    '''
+    __tablename__ = 'images'
+
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    filename = db.Column(db.String(350), nullable=False)
+    sneaker_id = db.Column(db.Integer, db.ForeignKey('sneakers.id'), nullable=False)
+
+    def __init__(self, filename, sneaker_id):
+        '''
+        initializes the table with data
+        '''
+        self.filename = filename
+        self.sneaker_id = sneaker_id
