@@ -69,5 +69,5 @@ class UploadForm(FlaskForm):
     name = StringField('Shoe name', validators=[DataRequired(), Length(max=45, message='Name must not exceed 45 characters!')])
     price = FloatField('Price', validators=[DataRequired()])
     description = TextAreaField('Description', validators=[DataRequired(), Length(max=330, 'Description must not exceed 330 characters!')])
-    files = MultipleFileField('Choose files')
+    files = MultipleFileField('select images')
     submit = SubmitField('Upload')
