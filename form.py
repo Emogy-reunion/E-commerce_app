@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, FloatField, TextAreaField, MultipleFileField
 from wtforms.validators import DataRequired, InputRequired, Email, Length, Regexp, EqualTo
 
 class RegistrationForm(FlaskForm):
@@ -59,3 +59,14 @@ class ResetForm(FlaskForm):
     confirmpassword = PasswordField('Confirm password', validators=[InputRequired(), EqualTo('password', message='Passwords must match!')])
     showpassword = BooleanField('Show passwords')
     submit = SubmitField('Reset password')
+
+
+class UploadForm(FlaskForm):
+    '''
+    initializes form to collect sneaker details and save them to the server
+    '''
+    name = StringField('Shoe name', validators=[DataRequired(), Length(max=45, message='Name must not exceed 45 characters!')])
+    price = FloatField('Price', validators=[DataRequired()])
+    description = TextAreaField('Description', validators=[DataRequired(), Length(max=320, message='Name must not exceed 350 characters!')])
+    files = MultipleFileField('Choose images')
+    submit = SubmitField('Upload')
