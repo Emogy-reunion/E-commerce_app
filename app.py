@@ -9,7 +9,7 @@ from routes.authentication import auth
 from routes.verification import verify
 from routes.reset import reset
 from routes.dashboard import dash
-from routes.uploads import post
+from routes.upload import post
 from utils.verification import mail
 from flask_login import LoginManager
 
