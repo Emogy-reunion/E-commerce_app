@@ -14,7 +14,7 @@ import os
 post = Blueprint('post', __name__)
 
 @post.route('/upload', methods=['GET', 'POST'])
-@loginrequired
+@login_required
 @role_required('admin')
 def upload():
 
