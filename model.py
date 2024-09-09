@@ -80,7 +80,7 @@ class Sneakers(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     images = db.relationship('Images', backref='sneaker', cascade='all, delete-orphan')
 
-    def __init__(self, name, price, description, user_id):
+    def __init__(self, name, price, description, user_id, brand, gender):
         '''
         initializes the table with data
         '''
@@ -88,6 +88,8 @@ class Sneakers(db.Model):
         self.price = price
         self.description = description
         self.user_id = user_id
+        self.brand = brand
+        self.gender = gender
 
 class Images(db.Model):
     '''
