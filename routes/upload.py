@@ -9,7 +9,7 @@ from flask_login import login_required, current_user
 from utils.role import role_required
 from werkzeug.utils import secure_filename
 import os
-
+from sqlalchemy.orm import joinedload
 
 post = Blueprint('post', __name__)
 
@@ -78,3 +78,31 @@ def upload():
             return jsonify({"errors": form.errors})
 
     return render_template('upload.html', form=form)
+
+@post.route('/uploads', methods=['GET'])
+@login_required
+@role_required('admin')
+def uploads():
+    '''
+    retrieve the uploads
+    it renders the uploads page where admins can edit or delete uploads
+    '''
+    page = request.args.get(page, 1, type=int)
+    per_page = 10
+
+    # prepare the table with eager loading of images
+    results = Sneakers.query.options(joinedload(Sneakers.images)).order_by(Sneakers.id.desc())
+
+    # paginate the results
+    sneakers = results.paginate(page=page, per_page=per_page)
+    return render_template('uploads.html', sneakers=sneakers)
+
+@post.route('/upload_details/<int:sneaker_id>')
+@login_required
+@role_required('admin')
+def upload_details():
+    '''
+    renders page to display upload details
+    '''
+    sneaker = db.session.get(Sneakers, sneaker_id)
+    return render_template('upload_details.html', sneaker=sneaker)
