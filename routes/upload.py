@@ -30,6 +30,8 @@ def upload():
             name = form.name.data.lower()
             price = float(form.price.data)
             description = form.description.data
+            brand = form.brand.data
+            gender = form.gender.data
 
             if "files" not in request.files:
                 '''
@@ -44,7 +46,8 @@ def upload():
                 return jsonify({'error': 'You did not select any files!'})
 
             try:
-                sneaker = Sneakers(name=name, price=price, description=description, user_id=current_user.id)
+                sneaker = Sneakers(name=name, price=price, description=description,
+                                   user_id=current_user.id, brand=brand, gender=gender)
                 db.session.add(sneaker)
                 db.session.commit()
 
