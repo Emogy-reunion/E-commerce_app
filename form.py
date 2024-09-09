@@ -67,7 +67,7 @@ class UploadForm(FlaskForm):
     '''
     
     name = StringField('Shoe name', validators=[DataRequired(), Length(max=45, message='Name must not exceed 45 characters!')])
-    price = FloatField('Price', validators=[DataRequired(), NumberRange(min=0, message='Price must be greater than or equal to 0']))
+    price = FloatField('Price', validators=[DataRequired(), NumberRange(min=0, message='Price must be greater than or equal to 0')])
     brand = StringField('Brand', validators=[DataRequired(), Length(max=40, message='Must not exceed 45 characters!')])
     gender = SelectField('Gender', choices=[('unisex', 'Unisex'), ('men', 'Men'), ('women', 'Women')])
     description = TextAreaField('Description', validators=[DataRequired(), Length(max=330, message='Description must not exceed 330 characters!')])
