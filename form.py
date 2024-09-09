@@ -85,3 +85,14 @@ class SearchForm(FlaskForm):
     gender = SelectField('Gender', choices=[('', 'Select a gender'), ('unisex', 'Unisex'), ('men', 'Men'), ('women', 'Women')], validators=[Optional()])
     submit = SubmitField('Search')
 
+class UpdateUpload(FlaskForm):
+    '''
+    form to allow users to update the sneakers
+    '''
+    name = StringField('Shoe name', validators=[DataRequired(), Length(max=45, message='Must not exceed 45 characters!')])
+    price = FloatField('Price', validators=[DataRequired(), NumberRange(min=0, message="Price must be greater than or equal to 0")])
+    brand = StringField('Brand', validators=[DataRequired(), Length(max=45, message='Must not exceed 45 characters!')])
+    gender = SelectField('Gender', choices=[('unisex', 'Unisex'), ('men', 'Men'), ('women', 'Women')], validators=[DataRequired()])
+    description = TextAreaField('Description', validators=[DataRequired(), Length(max=330, message='Description must not exceed 330 characters!')])
+    submit = SubmitField('Update')
+

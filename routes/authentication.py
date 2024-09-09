@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect, request, url_for, jsonif
 from form import RegistrationForm, LoginForm
 from model import db, Users
 from utils.verification import send_verification_email
-from flask_login import login_user
+from flask_login import login_user, logout_user, login_required
 
 auth = Blueprint('auth', __name__)
 
@@ -78,3 +78,14 @@ def register():
             return jsonify({'errors': form.errors})
 
 
+@auth.route('/logout')
+@login_required
+def logout():
+    """
+    Logs out the current user and redirects them to the home page.
+    """
+    try:
+        logout_user()  # Logs out the user
+        return jsonify({'success': 'Successfully logged out'})
+    else:
+        return jsonify({'error': 'An unexpected error occured!'})
