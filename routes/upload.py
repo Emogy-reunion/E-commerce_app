@@ -100,7 +100,7 @@ def uploads():
 @post.route('/upload_details/<int:sneaker_id>')
 @login_required
 @role_required('admin')
-def upload_details():
+def upload_details(sneaker_id):
     '''
     renders page to display upload details
     '''
