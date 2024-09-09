@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, FloatField, MultipleFileField, TextAreaField, SelectField
-from wtforms.validators import DataRequired, InputRequired, Email, Length, Regexp, EqualTo
+from wtforms.validators import DataRequired, InputRequired, Email, Length, Regexp, EqualTo, Optional, NumberRange
 
 class RegistrationForm(FlaskForm):
     '''
@@ -67,9 +67,21 @@ class UploadForm(FlaskForm):
     '''
     
     name = StringField('Shoe name', validators=[DataRequired(), Length(max=45, message='Name must not exceed 45 characters!')])
-    price = FloatField('Price', validators=[DataRequired()])
+    price = FloatField('Price', validators=[DataRequired(), NumberRange(min=0, message='Price must be greater than or equal to 0']))
     brand = StringField('Brand', validators=[DataRequired(), Length(max=40, message='Must not exceed 45 characters!')])
     gender = SelectField('Gender', choices=[('unisex', 'Unisex'), ('men', 'Men'), ('women', 'Women')])
     description = TextAreaField('Description', validators=[DataRequired(), Length(max=330, message='Description must not exceed 330 characters!')])
     files = MultipleFileField('select images')
     submit = SubmitField('Upload')
+
+class SearchForm(FlaskForm):
+    '''
+    form to allow users to filter and search collections
+    '''
+    name = StringField('Shoe name', validators=[Optional(), Length(max=50, message='Must not exceed 50 characters!')])
+    min_price = FloatField('Min_price', validators=[Optional(), NumberRange(min=0, message="Minimum price must be greater than or equal to 0")])
+    max_price = FloatField('Maximum price', NumberRange(min=0, message="Maximum price must be greater than or equal to 0")])
+    brand = StringField('Brand', validators=[Optional(), Length(max=50, message='Must not exceed 50 characters!')])
+    gender = SelectField('Gender', choices=[('', 'Select a gender'), ('unisex', 'Unisex'), ('men', 'Men'), ('women', 'Women')], validators=[Optional()])
+    submit = SubmitField('Search')
+
