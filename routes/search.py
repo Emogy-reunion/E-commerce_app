@@ -5,6 +5,7 @@ from flask import Blueprint, jsonify, render_template
 from flask_login import login_required
 from routes.utils import role_required
 from model import Sneakers
+from form import SearchForm
 
 
 find = Blueprint('find', __name__)
@@ -16,7 +17,8 @@ def admin_template():
     '''
     this route renders the admin search page
     '''
-    return render_template('admin_search.html')
+    form = SearchForm()
+    return render_template('admin_search.html', form=form)
 
 @find.route('/admin_search', methods=['GET'])
 @login_required
