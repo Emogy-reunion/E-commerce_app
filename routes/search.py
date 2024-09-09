@@ -3,7 +3,7 @@ contains routes that handle database searching
 '''
 from flask import Blueprint, jsonify, render_template
 from flask_login import login_required
-from routes.utils import role_required
+from utils.role import role_required
 from model import Sneakers
 from form import SearchForm
 
