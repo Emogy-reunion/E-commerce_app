@@ -75,6 +75,8 @@ class Sneakers(db.Model):
     name = db.Column(db.String(50), nullable=False)
     price = db.Column(db.Float, nullable=False)
     description = db.Column(db.Text, nullable=False)
+    gender = db.Column(db.String(50), nullable=False)
+    brand = db.Column(db.String(50), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     images = db.relationship('Images', backref='sneaker', cascade='all, delete-orphan')
 
