@@ -11,7 +11,7 @@ from routes.reset import reset
 from routes.dashboard import dash
 from routes.upload import post
 from routes.search import find
-from route.profile import profile
+from routes.profile import profile
 from utils.verification import mail
 from flask_login import LoginManager
 
