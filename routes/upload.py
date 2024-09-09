@@ -30,7 +30,7 @@ def upload():
             name = form.name.data.lower()
             price = float(form.price.data)
             description = form.description.data
-            brand = form.brand.data
+            brand = form.brand.data.lower()
             gender = form.gender.data
 
             if "files" not in request.files:
