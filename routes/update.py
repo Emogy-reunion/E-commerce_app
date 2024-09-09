@@ -35,7 +35,7 @@ def update_product(product_id):
             price = float(form.price.data)
             description = form.description.data
             brand = form.brand.data.lower()
-            gender = form.gender.data.lower()
+            gender = form.gender.data
 
             try:
 
