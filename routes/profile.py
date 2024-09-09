@@ -10,7 +10,7 @@ from flask_login import current_user, login_required
 profile = Blueprint('profile', __name__)
 
 
-@prof.route('/admin_profile')
+@profile.route('/admin_profile')
 @login_required
 @role_required('admin')
 def admin_profile():
