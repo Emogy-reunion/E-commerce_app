@@ -10,6 +10,7 @@ from routes.verification import verify
 from routes.reset import reset
 from routes.dashboard import dash
 from routes.upload import post
+from routes.search import find
 from utils.verification import mail
 from flask_login import LoginManager
 
@@ -29,6 +30,7 @@ app.register_blueprint(verify)
 app.register_blueprint(reset)
 app.register_blueprint(dash)
 app.register_blueprint(post)
+app.register_blueprint(find)
 
 @loginmanager.user_loader
 def load_user(user_id):
