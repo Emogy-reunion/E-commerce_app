@@ -147,3 +147,12 @@ def unisex():
     results = Sneakers.query.filter(Sneakers.gender == 'unisex').options(joinedload(Sneakers.images)).order_by(Sneakers.id.desc())
     sneakers = results.paginate(page=page, per_page=per_page)
     return render_template('unisex.html', sneakers=sneakers)
+
+@post.route('product_details/<int:product_id')
+@login_required
+def product_details(product_id):
+    '''
+    renders details about the products
+    '''
+    sneaker = db.session.get(Sneakers, product_id)
+    return render_template('product_details.html', sneaker=sneaker)
