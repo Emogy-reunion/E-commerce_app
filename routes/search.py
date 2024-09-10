@@ -9,7 +9,7 @@ from form import SearchForm
 
 
 find = Blueprint('find', __name__)
-i
+
 @find.route('/admin_search_template', methods=['GET'])
 @login_required
 @role_required('admin')
