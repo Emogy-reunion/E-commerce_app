@@ -4,7 +4,7 @@ Handles property deletion: profiles, uploads
 from flask import Blueprint, jsonify
 from model import db, Users, Sneakers
 from utils.role import role_required
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 
 clear = Blueprint('clear', __name__)
@@ -28,3 +28,19 @@ def delete_post(sneaker_id):
         db.session.rollback()
         return jsonify({'error': 'An error occured. Please try deleting again!'})
 
+
+@clear.route('/delete_guest_account')
+@login_required
+def delete_guest_account():
+    '''
+    deletes the guest user's account
+    '''
+    user = db.session.get(Users, current_user.id)
+
+    try:
+        db.session.delete(user)
+        db.session.commit()
+        return jsonify({'success': "Account deleted successfully!"})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': 'An error occurred. Try again!'})
