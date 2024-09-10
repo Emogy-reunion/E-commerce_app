@@ -10,10 +10,10 @@ from form import SearchForm
 
 find = Blueprint('find', __name__)
 i
-@find.route('/search_template', methods=['GET'])
+@find.route('/admin_search_template', methods=['GET'])
 @login_required
 @role_required('admin')
-def search_template():
+def admin_search_template():
     '''
     this route renders the admin search page
     '''
@@ -73,18 +73,18 @@ def admin_search():
     else:
         return jsonify({'data': results})
 
-@find.route('/user_search')
+@find.route('/guest_search_template')
 @login_required
-def user_search():
+def guest_search_template():
     '''
     render the authenticated users search form
     '''
     form = SearchForm()
-    return render_template('user_search.html', form=form)
+    return render_template('guest_search.html', form=form)
 
-@find.route('/filter')
+@find.route('/guest_search')
 @login_required
-def filter():
+def guest_search():
     '''
     allows users to filter products based on certain conditions
     '''
