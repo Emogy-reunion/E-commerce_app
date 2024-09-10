@@ -19,3 +19,12 @@ def admin_profile():
     '''
     admin = db.session.get(Users, current_user.id)
     return render_template('admin_profile.html', admin=admin)
+
+@profile.route('/guest_profile')
+@login_required
+def guest_profile():
+    '''
+    renders the guest's profile page
+    '''
+    guest = db.session.get(Users, current_user.id)
+    return render_template('guest_profile.html', guest=guest)

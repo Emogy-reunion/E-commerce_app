@@ -87,5 +87,5 @@ def logout():
     try:
         logout_user()  # Logs out the user
         return jsonify({'success': 'Successfully logged out'})
-    else:
+    except Exception as e:
         return jsonify({'error': 'An unexpected error occured!'})

@@ -12,7 +12,7 @@ def send_verification_email(user):
     verification_url = url_for('verify.verify_email', token=token, _external=True)
     msg = Message(
             subject='Verify your email',
-            sender='info.markrealestateapp734@gmail.com',
+            sender='eastmonarchkicks@gmail.com',
             recipients=[user.email]
             )
     msg.body = f"Click the following link to verify your email: {verification_url}"
