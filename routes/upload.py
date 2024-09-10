@@ -87,7 +87,7 @@ def uploads():
     retrieve the uploads
     it renders the uploads page where admins can edit or delete uploads
     '''
-    page = request.args.get(page, 1, type=int)
+    page = request.args.get('page', 1, type=int)
     per_page = 10
 
     # prepare the table with eager loading of images
@@ -106,3 +106,16 @@ def upload_details(sneaker_id):
     '''
     sneaker = db.session.get(Sneakers, sneaker_id)
     return render_template('upload_details.html', sneaker=sneaker)
+
+@post.route('/men')
+@login_required
+def men():
+    '''
+    fetch all men products and render them together with the men.html
+    '''
+    page = request.args.get('page', 1, type=int)
+    per_page = 10
+    
+    results = Sneakers.query.filter(Sneakers.gender == 'men').options(joinedload(Sneakers.images)).order_by(Sneakers.id.desc())
+    sneakers = results.paginate(page=page, per_page=per_page)
+    return render_template('men.html', sneakers=sneakers)
