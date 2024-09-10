@@ -133,3 +133,17 @@ def women():
     results = Sneakers.query.filter(Sneakers.gender == 'women').options(joinedload(Sneaker.images)).order_by(Sneakers.id.desc())
     sneakers = results.paginate(page=page, per_page=per_page)
     return render_template('women.html', sneakers=sneakers)
+
+@post.route('/unisex')
+@login_required
+def unisex():
+    '''
+    fetch gender neutral products and render them
+    '''
+
+    page = request.args.get('page', 1, type=int)
+    per_page = 12
+
+    results = Sneakers.query.filter(Sneakers.gender == 'unisex').options(joinedload(Sneakers.images)).order_by(Sneakers.id.desc())
+    sneakers = results.paginate(page=page, per_page=per_page)
+    return render_template('unisex.html', sneakers=sneakers)
