@@ -148,7 +148,7 @@ def unisex():
     sneakers = results.paginate(page=page, per_page=per_page)
     return render_template('unisex.html', sneakers=sneakers)
 
-@post.route('/product_details/<int:product_id')
+@post.route('/product_details/<int:product_id>')
 @login_required
 def product_details(product_id):
     '''
