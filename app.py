@@ -4,7 +4,7 @@ Initializes the configuration settings
 '''
 from flask import Flask
 from create_app import create_app
-from model import Users, db, bcrypt
+from model import Users, db, bcrypt, Sneakers, Images, Cart, CartItems
 from routes.authentication import auth
 from routes.verification import verify
 from routes.reset import reset
