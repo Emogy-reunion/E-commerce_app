@@ -1,23 +1,28 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required, current_user
 from model import Sneakers, db, Images, Cart, CartItems
-from form import QuantityForm
+from form import QuantityForm, SizeForm
 
 
 cart_bp = Blueprint('cart_bp', __name__)
 
-@cart_bp.route('/add_to_cart/<int:product_id>', methods=['POST'])
+@cart_bp.route('/add_to_cart/<int:sneaker_id>', methods=['POST'])
 @login_required
-def add_to_cart(product_id):
+def add_to_cart(sneaker_id):
     '''
     this route adds an item to cart
     '''
+
+    # extract the shoe size from the selected sizes
+    form = SizeForm(request.form)
+    size = form.size.data
+
     user_id = current_user.id
 
     # fetch the product from the database
-    product = db.session.get(Sneakers, product_id)
+    sneaker = db.session.get(Sneakers, sneaker_id)
 
-    if not product:
+    if not sneaker:
         '''
         if the product doesn't exist
         '''
@@ -40,7 +45,7 @@ def add_to_cart(product_id):
             return jsonify({'error': 'Item not added to cart. Try again!'})
 
     # check if the product already exists in the cart
-    cart_item = CartItems.query.filter_by(product_id=product_id).first()
+    cart_item = CartItems.query.filter_by(sneaker_id=sneaker_id).first()
 
     if cart_item:
         '''
@@ -48,7 +53,7 @@ def add_to_cart(product_id):
         '''
         try:
             cart_item.quantity += 1
-            cart_item.subtotal = product.price * cart_item.quantity
+            cart_item.subtotal = sneaker.price * cart_item.quantity
             db.session.commit()
             return jsonify({'success': 'Successfully added to cart'})
         except Exception as e:
@@ -61,11 +66,10 @@ def add_to_cart(product_id):
         try:
             new_item = CartItems(
                     card_id=cart.id,
-                    product_id=product_id,
-                    product_name=product.name,
-                    product_price=product.price,
+                    sneaker_id=sneaker_id,
+                    size=size
                     quantity=1,
-                    subtotal=product.price
+                    subtotal=sneaker.price
                     )
             db.session.add(new_item)
             db.session.commit()
@@ -73,4 +77,3 @@ def add_to_cart(product_id):
         except Exception as e:
             db.session.rollback()
             return jsonify({'error': 'Item not added to cart. Try again!'})
-
