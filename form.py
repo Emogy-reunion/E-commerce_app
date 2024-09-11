@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, FloatField, MultipleFileField, TextAreaField, SelectField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, FloatField, MultipleFileField, TextAreaField, SelectField, IntegerField
 from wtforms.validators import DataRequired, InputRequired, Email, Length, Regexp, EqualTo, Optional, NumberRange
 
 class RegistrationForm(FlaskForm):
@@ -96,3 +96,8 @@ class UpdateUpload(FlaskForm):
     description = TextAreaField('Description', validators=[DataRequired(), Length(max=330, message='Description must not exceed 330 characters!')])
     submit = SubmitField('Update')
 
+class QuantityForm(FlaskForm):
+    '''
+    form to allow users to increment or decrement the quantity of items
+    '''
+    quantity = IntegerField('Quantity', validators=[DataRequired(), NumberRange(min=1, message="Price must be greater than or equal to 1")])
