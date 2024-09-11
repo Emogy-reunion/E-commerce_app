@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, flash, url_for, render_template, redirect
 from flask_login import login_required, current_user
 from model import Sneakers, db, Images, Cart, CartItems
 from form import QuantityForm, SizeForm
@@ -15,7 +15,8 @@ def add_to_cart(sneaker_id):
 
     # extract the shoe size from the selected sizes
     form = SizeForm(request.form)
-    size = form.size.data
+
+    size = int(form.size.data)
 
     user_id = current_user.id
 
@@ -77,3 +78,71 @@ def add_to_cart(sneaker_id):
         except Exception as e:
             db.session.rollback()
             return jsonify({'error': 'Item not added to cart. Try again!'})
+
+@cart_bp.route('/view_cart')
+@login_required
+def view_cart():
+    '''
+    retrieves the user cart items
+    '''
+    
+    # render form to allow users to select quantity
+    form = QuantityForm()
+
+    user_id = current_user.id
+
+    # query the cart together with its items and the relevant sneaker
+    cart = Cart.query.options(joinedload(Cart.items).joinedload(CartItems.sneaker)).filter_by(user_id=user_id).first()
+
+    if not cart or not cart.items:
+        '''
+        check if the user has a cart
+            - if cart in None it means the cart is not available
+        also checks if the cart has items
+            - if the cart.items is empty the user has not added any items to the cart
+        '''
+        return render_template('cart.html', cart=None)
+
+    # calculate the total price of items in the cart
+    total_price = sum(item.subtotal for item in cart.items)
+    
+    return render_template('cart.html', cart=cart, form=form, total_price=total_price)
+
+@cart_bp.route('/update_cart/<int:sneaker_id>', methods=['POST'])
+@login_required
+def update_cart(sneaker_id):
+    '''
+    updates the quantity and subtotal fields of the items table
+    '''
+    user_id = current_user.id
+
+    # retrieves the quantity of an item
+    form = QuantityForm(request.form)
+    quantity = int(form.quantity.data)
+
+    cart_item = CartItems.query.options(joinedload(CartItems.sneaker)).filter_by(sneaker_id=sneaker_id).first()
+
+    # Check if the cart item exists
+    if not cart_item:
+        return jsonify({'error': 'Cart item not found'})
+
+    if quantity > 0:
+        try:
+            cart_item.quantity = quantity
+            cart_item.subtotal = cart_item.sneaker.price * cart_item.quantity
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            return jsonify({'error': 'Quantity not updated!'})
+
+        # query the cart together with its items and the relevant sneaker
+        cart = Cart.query.options(joinedload(Cart.items).joinedload(CartItems.sneaker)).filter_by(user_id=user_id).first()
+
+        # calculate the total price of items in the cart
+        total_price = sum(item.subtotal for item in cart.items)
+
+        return jsonify({'subtotal': cart_item.subtotal, 'total_price': total_price})
+    else:
+        return({'error': 'Item cannot be less than 0'})
+
+
