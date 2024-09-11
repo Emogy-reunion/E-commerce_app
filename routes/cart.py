@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required, current_user
 from model import Sneakers, db, Images, Cart, CartItems
+from form import QuantityForm
 
 
 cart_bp = Blueprint('cart_bp', __name__)
