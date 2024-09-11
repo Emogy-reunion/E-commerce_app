@@ -81,6 +81,7 @@ class Sneakers(db.Model):
     posted_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     images = db.relationship('Images', backref='sneaker', cascade='all, delete-orphan')
+    cart_items = db.relationship('CartItems', backref='sneaker', cascade='all, delete-orphan')
 
     def __init__(self, name, price, description, user_id, brand, gender):
         '''
@@ -134,20 +135,18 @@ class CartItems(db.Model):
     '''
     id = db.Column(db.Integer, primary_key=True)
     cart_id = db.Column(db.Integer, db.ForeignKey('cart.id'), nullable=False)
-    product_id = db.Column(db.Integer, nullable=False)  # Foreign key to the Product table
-    product_name = db.Column(db.String(100), nullable=False)
-    product_price = db.Column(db.Float, nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     subtotal = db.Column(db.Float, nullable=False)
+    sneaker_id = db.Column(db.Integer, db.ForeignKey('sneakers.id'), nullable=False)
+    sneaker = db.relationship('Sneakers', backref='cart_items')
+    size = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, cart_id, product_id, product_name, product_price, quantity, subtotal):
+    def __init__(self, cart_id, sneaker_id, quantity, subtotal, size):
         '''
         Initializes the CartItems table with data
         '''
         self.cart_id = cart_id
-        self.product_id = product_id
-        self.product_name = product_name
-        self.product_price = product_price
         self.quantity = quantity
         self.subtotal = subtotal
-
+        self.sneaker_id = sneaker_id
+        self.size = size
