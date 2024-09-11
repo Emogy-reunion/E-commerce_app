@@ -122,6 +122,12 @@ class Cart(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc), nullable=False)
     items = db.relationship('CartItems', lazy=True, backref='cart', cascade='all, delete_orphan')
 
+    def __init__(self, user_id):
+        '''
+        initializes the Cart table with data
+        '''
+        self.user_id = user_id
+
 class CartItems(db.Model):
     '''
     stores the items a user adds to cart
@@ -133,4 +139,15 @@ class CartItems(db.Model):
     product_price = db.Column(db.Float, nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     subtotal = db.Column(db.Float, nullable=False)
+
+    def __init__(self, cart_id, product_id, product_name, product_price, quantity, subtotal):
+        '''
+        Initializes the CartItems table with data
+        '''
+        self.cart_id = cart_id
+        self.product_id = product_id
+        self.product_name = product_name
+        self.product_price = product_price
+        self.quantity = quantity
+        self.subtotal = subtotal
 
