@@ -2,7 +2,7 @@
 This module contains routes that handle uploads and retrieval
 '''
 from flask import Blueprint, jsonify, render_template, current_app, request
-from form import UploadForm
+from form import UploadForm, SizeForm
 from model import db, Sneakers, Images
 from utils.allowed import allowed_file
 from flask_login import login_required, current_user
@@ -154,5 +154,7 @@ def product_details(product_id):
     '''
     renders details about the products
     '''
+    form = SizeForm()
+
     sneaker = db.session.get(Sneakers, product_id)
-    return render_template('product_details.html', sneaker=sneaker)
+    return render_template('product_details.html', sneaker=sneaker, form=form)
