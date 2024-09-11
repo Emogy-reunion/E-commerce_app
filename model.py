@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from itsdangerous import URLSafeTimedSerializer
@@ -23,10 +23,11 @@ class Users(UserMixin, db.Model):
     last_name = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=False)
     password_hash = db.Column(db.String(100), nullable=False)
-    registered_on = db.Column(db.DateTime, default=datetime.utcnow)
+    registered_on = db.Column(db.DateTime, default=datetime.now(timezone.utc)
     role = db.Column(db.String(50), nullable=False)
     verified = db.Column(db.Boolean, default=False)
     sneakers = db.relationship('Sneakers', lazy=True, backref='user', cascade='all, delete-orphan')
+    cart = db.relationship('Cart', uselist=False, lazy=True, backref='user', cascade='all, delete-orphan')
 
     def __init__(self, firstname, lastname, email, password, role='guest'):
         self.first_name = firstname
@@ -77,6 +78,7 @@ class Sneakers(db.Model):
     description = db.Column(db.Text, nullable=False)
     gender = db.Column(db.String(50), nullable=False)
     brand = db.Column(db.String(50), nullable=False)
+    posted_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     images = db.relationship('Images', backref='sneaker', cascade='all, delete-orphan')
 
@@ -108,3 +110,44 @@ class Images(db.Model):
         '''
         self.filename = filename
         self.sneaker_id = sneaker_id
+
+class Cart(db.Model):
+    '''
+    stores items a user wants to purchase before checkout
+    '''
+    __tablename__ = 'cart'
+
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', unique=True), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc), nullable=False)
+    items = db.relationship('CartItems', lazy=True, backref='cart', cascade='all, delete_orphan')
+
+    def __init__(self, user_id):
+        '''
+        initializes the Cart table with data
+        '''
+        self.user_id = user_id
+
+class CartItems(db.Model):
+    '''
+    stores the items a user adds to cart
+    '''
+    id = db.Column(db.Integer, primary_key=True)
+    cart_id = db.Column(db.Integer, db.ForeignKey('cart.id'), nullable=False)
+    product_id = db.Column(db.Integer, nullable=False)  # Foreign key to the Product table
+    product_name = db.Column(db.String(100), nullable=False)
+    product_price = db.Column(db.Float, nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
+    subtotal = db.Column(db.Float, nullable=False)
+
+    def __init__(self, cart_id, product_id, product_name, product_price, quantity, subtotal):
+        '''
+        Initializes the CartItems table with data
+        '''
+        self.cart_id = cart_id
+        self.product_id = product_id
+        self.product_name = product_name
+        self.product_price = product_price
+        self.quantity = quantity
+        self.subtotal = subtotal
+
