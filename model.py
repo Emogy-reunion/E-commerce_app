@@ -34,6 +34,7 @@ class Users(UserMixin, db.Model):
         self.first_name = firstname
         self.last_name = lastname
         self.email = email
+        self.phone_number = phone_number
         self.role = role
         self.set_password(password)
 
