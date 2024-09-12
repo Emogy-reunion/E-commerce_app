@@ -27,8 +27,8 @@ class Users(UserMixin, db.Model):
     registered_on = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     role = db.Column(db.String(50), nullable=False)
     verified = db.Column(db.Boolean, default=False)
-    sneakers = db.relationship('Sneakers', lazy=True, backref='user', cascade='all, delete-orphan')
-    cart = db.relationship('Cart', uselist=False, lazy=True, backref='user', cascade='all, delete-orphan')
+    sneakers = db.relationship('Sneakers', lazy=True, backref='sneaker_user', cascade='all, delete-orphan')
+    cart = db.relationship('Cart', uselist=False, lazy=True, back_populates='cart_user', cascade='all, delete-orphan')
     orders = db.relationship('Orders', back_populates='user', lazy=True)
 
     def __init__(self, firstname, lastname, email, phone_number, password, role='member'):
@@ -124,6 +124,7 @@ class Cart(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), unique=True, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc), nullable=False)
+    cart_user = db.relationship('Users', lazy=True, back_populates='cart')
     items = db.relationship('CartItems', lazy=True, backref='cart', cascade='all, delete-orphan')
 
     def __init__(self, user_id):
