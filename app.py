@@ -15,6 +15,7 @@ from routes.profile import profile
 from routes.update import edit
 from routes.delete import clear
 from routes.cart import cart_bp
+from routes.order import order
 from utils.verification import mail, send_verification_email
 from flask_login import LoginManager
 
@@ -39,6 +40,7 @@ app.register_blueprint(profile)
 app.register_blueprint(edit)
 app.register_blueprint(clear)
 app.register_blueprint(cart_bp)
+app.register_blueprint(order)
 
 # create tables
 with app.app_context():
