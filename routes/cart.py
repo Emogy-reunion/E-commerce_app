@@ -68,7 +68,7 @@ def add_to_cart(sneaker_id):
             new_item = CartItems(
                     card_id=cart.id,
                     sneaker_id=sneaker_id,
-                    size=size
+                    size=size,
                     quantity=1,
                     subtotal=sneaker.price
                     )
@@ -144,5 +144,3 @@ def update_cart(sneaker_id):
         return jsonify({'subtotal': cart_item.subtotal, 'total_price': total_price})
     else:
         return({'error': 'Item cannot be less than 0'})
-
-
