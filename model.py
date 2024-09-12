@@ -30,7 +30,7 @@ class Users(UserMixin, db.Model):
     sneakers = db.relationship('Sneakers', lazy=True, backref='user', cascade='all, delete-orphan')
     cart = db.relationship('Cart', uselist=False, lazy=True, backref='user', cascade='all, delete-orphan')
 
-    def __init__(self, firstname, lastname, email, password, role='guest'):
+    def __init__(self, firstname, lastname, email, phone_number, password, role='member'):
         self.first_name = firstname
         self.last_name = lastname
         self.email = email
