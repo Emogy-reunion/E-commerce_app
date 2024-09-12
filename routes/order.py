@@ -23,5 +23,48 @@ def place_holder():
 
     cart = Cart.query.options(joinedload(Cart.items).joinedload(Cart.cart_user).joinedload(CartItems.item).joinedload(Sneaker.images)).filter_by(user_id=user_id).first()
 
+    if not cart or not cart.items:
+        '''
+        ensures the cart exists and is not empty
+        '''
+        return jsonify({'error': 'The cart is empty!'})
+
+    if request.method == 'GET':
+        return render_template('checkout.html', cart=cart, total_amount=total_amount, form=form)
+    else:
+
+        form = CheckoutForm(request.form)
+
+        if form.validate_on_submit():
+            '''
+            ensures that the form data is valid
+            '''
+            phone_number = form.phone_number.data
+
+            try:
+                # create the order
+                order = Order(user_id=user_id, total_amount=total_amount, status='not paid')
+                db.session.add(order)
+                db.session.commit()
+
+                for item in cart.items:
+                    '''
+                    iterate over the items in the cart, add each of them to the orderItems table
+                    '''
+                    order_item = OrderItems(
+                            quantity=item.quantity,
+                            size=item.size,
+                            subtotal=item.subtotal,
+                            order_id=order.id,
+                            sneaker_id=item.sneaker_id
+                            )
+                    db.session.add()
+                db.session.commit()
+            except Exception as e:
+                db.session.rollback()
+                return jsonify({'error': 'An unexpected error occured!'})
+
+            # handle payments
+
 
 
