@@ -85,14 +85,14 @@ def view_cart():
     '''
     retrieves the user cart items
     '''
-    
+
     # render form to allow users to select quantity
     form = QuantityForm()
 
     user_id = current_user.id
 
     # query the cart together with its items and the relevant sneaker
-    cart = Cart.query.options(joinedload(Cart.items).joinedload(CartItems.sneaker)).filter_by(user_id=user_id).first()
+    cart = Cart.query.options(joinedload(Cart.items).joinedload(CartItems.item).joinedload(Sneakers.images)).filter_by(user_id=user_id).first()
 
     if not cart or not cart.items:
         '''
@@ -120,7 +120,7 @@ def update_cart(sneaker_id):
     form = QuantityForm(request.form)
     quantity = int(form.quantity.data)
 
-    cart_item = CartItems.query.options(joinedload(CartItems.sneaker)).filter_by(sneaker_id=sneaker_id).first()
+    cart_item = CartItems.query.options(joinedload(CartItems.item)).filter_by(sneaker_id=sneaker_id).first()
 
     # Check if the cart item exists
     if not cart_item:
@@ -129,17 +129,17 @@ def update_cart(sneaker_id):
     if quantity > 0:
         try:
             cart_item.quantity = quantity
-            cart_item.subtotal = cart_item.sneaker.price * cart_item.quantity
+            cart_item.subtotal = cart_item.item.price * cart_item.quantity
             db.session.commit()
         except Exception as e:
             db.session.rollback()
             return jsonify({'error': 'Quantity not updated!'})
 
         # query the cart together with its items and the relevant sneaker
-        cart = Cart.query.options(joinedload(Cart.items).joinedload(CartItems.sneaker)).filter_by(user_id=user_id).first()
+        cart = Cart.query.options(joinedload(Cart.items).joinedload(CartItem.item)).filter_by(user_id=user_id).first()
 
         # calculate the total price of items in the cart
-        total_price = sum(item.subtotal for item in cart.items)
+        total_price = sum(sneaker.subtotal for sneaker in cart.items)
 
         return jsonify({'subtotal': cart_item.subtotal, 'total_price': total_price})
     else:
