@@ -40,7 +40,7 @@ class Users(UserMixin, db.Model):
 
     def set_password(self, password):
         """
-        Hashes and stores the password
+        Hashes and stores the password hash
         """
         self.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
 
