@@ -52,14 +52,15 @@ def create_initial_admin():
     '''
     creates the initial admin who adds other admins if any
     '''
-    if Users.query.filter_by(email='mv7786986@gmail.com').first() is None:
-        try:
-            admin = Users(firstname='Mark', lastname='Mugendi',
-                          email='mv7786986@gmail.com', phone_number='+254790425403', password='&Admin23', role='admin')
-            db.session.add(admin)
-            db.session.commit()
-        except Exception as e:
-            db.session.rollback()
+    with app.app_context():
+        if Users.query.filter_by(email='mv7786986@gmail.com').first() is None:
+            try:
+                admin = Users(firstname='Mark', lastname='Mugendi',
+                              email='mv7786986@gmail.com', phone_number='+254790425403', password='&Admin23', role='admin')
+                db.session.add(admin)
+                db.session.commit()
+            except Exception as e:
+                db.session.rollback()
 
 create_initial_admin()
 
