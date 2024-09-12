@@ -22,6 +22,7 @@ class Users(UserMixin, db.Model):
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=False)
+    phone_number = db.Column(db.String(50), unique=True, nullable=False)
     password_hash = db.Column(db.String(100), nullable=False)
     registered_on = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     role = db.Column(db.String(50), nullable=False)
@@ -29,16 +30,17 @@ class Users(UserMixin, db.Model):
     sneakers = db.relationship('Sneakers', lazy=True, backref='user', cascade='all, delete-orphan')
     cart = db.relationship('Cart', uselist=False, lazy=True, backref='user', cascade='all, delete-orphan')
 
-    def __init__(self, firstname, lastname, email, password, role='guest'):
+    def __init__(self, firstname, lastname, email, phone_number, password, role='member'):
         self.first_name = firstname
         self.last_name = lastname
         self.email = email
+        self.phone_number = phone_number
         self.role = role
         self.set_password(password)
 
     def set_password(self, password):
         """
-        Hashes and stores the password
+        Hashes and stores the password hash
         """
         self.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
 
@@ -81,7 +83,7 @@ class Sneakers(db.Model):
     posted_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     images = db.relationship('Images', backref='sneaker', cascade='all, delete-orphan')
-    cart_items = db.relationship('CartItems', backref='sneaker', cascade='all, delete-orphan')
+    cart_items = db.relationship('CartItems', back_populates='item', cascade='all, delete-orphan')
 
     def __init__(self, name, price, description, user_id, brand, gender):
         '''
@@ -138,7 +140,7 @@ class CartItems(db.Model):
     quantity = db.Column(db.Integer, nullable=False)
     subtotal = db.Column(db.Float, nullable=False)
     sneaker_id = db.Column(db.Integer, db.ForeignKey('sneakers.id'), nullable=False)
-    sneaker = db.relationship('Sneakers', backref='cart_items')
+    item = db.relationship('Sneakers', back_populates='cart_items')
     size = db.Column(db.Integer, nullable=False)
 
     def __init__(self, cart_id, sneaker_id, quantity, subtotal, size):

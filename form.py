@@ -9,6 +9,10 @@ class RegistrationForm(FlaskForm):
     firstname = StringField('First name', validators=[DataRequired(), Length(min=2, max=30)])
     lastname = StringField('Last name', validators=[DataRequired(), Length(min=2, max=30)])
     email = StringField('Email', validators=[Email(), InputRequired(), Length(max=30)])
+    phone_number = StringField('Phone Number', validators=[
+        DataRequired(),
+        Regexp(r'^\+2547\d{8}$', message="Phone number must start with +2547 followed by 8 digits.")
+        ])
     password = PasswordField('Password', validators=[
         InputRequired(),
         Length(min=8, message="Password must be at least 8 characters long."),
