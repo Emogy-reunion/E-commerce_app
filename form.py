@@ -111,3 +111,13 @@ class SizeForm(FlaskForm):
     form to allow users to select the size
     '''
     size = SelectField('Select Size', choices=[(str(i), str(i)) for i in range(36, 46)])
+
+class CheckoutForm(FlaskForm):
+    '''
+    allows users to enter checkout details
+    '''
+    phone_number = StringField('Phone Number', validators=[
+        DataRequired(),
+        Regexp(r'^\+2547\d{8}$', message="Phone number must start with +2547 followed by 8 digits.")
+        ])
+    submit = SubmitField('Order now')
