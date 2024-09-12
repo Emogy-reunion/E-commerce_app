@@ -85,14 +85,14 @@ def view_cart():
     '''
     retrieves the user cart items
     '''
-    
+
     # render form to allow users to select quantity
     form = QuantityForm()
 
     user_id = current_user.id
 
     # query the cart together with its items and the relevant sneaker
-    cart = Cart.query.options(joinedload(Cart.items).joinedload(CartItems.item)).filter_by(user_id=user_id).first()
+    cart = Cart.query.options(joinedload(Cart.items).joinedload(CartItems.item).joinedload(Sneakers.images)).filter_by(user_id=user_id).first()
 
     if not cart or not cart.items:
         '''
