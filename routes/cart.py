@@ -144,3 +144,36 @@ def update_cart(sneaker_id):
         return jsonify({'subtotal': cart_item.subtotal, 'total_price': total_price})
     else:
         return({'error': 'Item cannot be less than 0'})
+
+
+@cart_bp.route('/remove_from_cart/<int:sneaker_id>', methods=['DELETE'])
+@login_required
+def remove_from_cart(sneaker_id):
+    '''
+    removes an item from the cart
+    '''
+    user_id = current_user.id
+
+    cart_item = CartItems.query.options(joinedload(CartItems.item)).filter_by(sneaker_id=sneaker_id).first()
+
+    # Check if the cart item exists
+    if not cart_item:
+        return jsonify({'error': 'Cart item not found'})
+
+    try:
+        db.session.delete(cart_item)
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': 'Item not removed!'})
+
+    cart = Cart.query.options(joinedload(Cart.items).joinedload(CartItem.item)).filter_by(user_id=user_id).first()
+
+    # If the cart is empty, return a total price of 0
+    if not cart or not cart.items:
+        return jsonify({'total_price': 0})
+
+    # recalculate the total price of items in the cart
+    total_price = sum(sneaker.subtotal for sneaker in cart.items)
+    return jsonify({'total_price': total_price})
+
