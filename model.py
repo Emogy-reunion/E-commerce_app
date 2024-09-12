@@ -34,12 +34,13 @@ class Users(UserMixin, db.Model):
         self.first_name = firstname
         self.last_name = lastname
         self.email = email
+        self.phone_number = phone_number
         self.role = role
         self.set_password(password)
 
     def set_password(self, password):
         """
-        Hashes and stores the password
+        Hashes and stores the password hash
         """
         self.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
 
