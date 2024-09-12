@@ -28,7 +28,8 @@ class Users(UserMixin, db.Model):
     role = db.Column(db.String(50), nullable=False)
     verified = db.Column(db.Boolean, default=False)
     sneakers = db.relationship('Sneakers', lazy=True, backref='user', cascade='all, delete-orphan')
-    cart = db.relationship('Cart', uselist=False, lazy=True, backref='user', cascade='all, delete-orphan')
+    cart = db.relationship('Cart', uselist=False, lazy=True, back_populates='user', cascade='all, delete-orphan')
+    orders = db.relationship('Orders', back_populates='user', lazy=True)
 
     def __init__(self, firstname, lastname, email, phone_number, password, role='member'):
         self.first_name = firstname
@@ -84,6 +85,7 @@ class Sneakers(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     images = db.relationship('Images', backref='sneaker', cascade='all, delete-orphan')
     cart_items = db.relationship('CartItems', back_populates='item', cascade='all, delete-orphan')
+    orders = db.relationship('OrderItems', back_populates='ordered_item', lazy=True)
 
     def __init__(self, name, price, description, user_id, brand, gender):
         '''
@@ -123,7 +125,8 @@ class Cart(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), unique=True, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc), nullable=False)
-    items = db.relationship('CartItems', lazy=True, backref='cart', cascade='all, delete-orphan')
+    user = db.relationship('Users', lazy=True, back_populates='cart')
+    items = db.relationship('CartItems', lazy=True, back_populates='cart', cascade='all, delete-orphan')
 
     def __init__(self, user_id):
         '''
@@ -135,8 +138,9 @@ class CartItems(db.Model):
     '''
     stores the items a user adds to cart
     '''
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
     cart_id = db.Column(db.Integer, db.ForeignKey('cart.id'), nullable=False)
+    cart = db.relationship('Cart', lazy=True, back_populates='items')
     quantity = db.Column(db.Integer, nullable=False)
     subtotal = db.Column(db.Float, nullable=False)
     sneaker_id = db.Column(db.Integer, db.ForeignKey('sneakers.id'), nullable=False)
@@ -152,3 +156,35 @@ class CartItems(db.Model):
         self.subtotal = subtotal
         self.sneaker_id = sneaker_id
         self.size = size
+
+class Orders(db.Model):
+    '''
+    stores the user's orders
+    '''
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    total_amount = db.Column(db.Float, nullable=False)
+    status = db.Column(db.String(50), nullable=False)
+    user = db.relationship('Users', back_populates='orders')
+    ordered_items = db.relationship('OrderItems', back_populates='order', lazy=True)
+
+    def __init__(self, user_id, total_amount):
+        '''
+        initializes the order
+        '''
+        self.user_id = user_id
+        self.total_amount = total_amount
+
+class OrderItems(db.Model):
+    '''
+    stores the items ordered in a single order
+    '''
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
+    size = db.Column(db.Integer, nullable=False)
+    subtotal = db.Float(db.Integer, nullable=False)
+    order_id = db.Column(db.Integer, db.ForeignKey('orders.id'), nullable=False)
+    order = db.relationship('Orders', back_populates='ordered_items', lazy=True)
+    sneaker_id = db.Column(db.Integer, db.ForeignKey('sneakers.id'), nullable=False)
+    ordered_item = db.relationship('Sneakers', back_populates='orders')
+
