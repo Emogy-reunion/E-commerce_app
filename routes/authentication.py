@@ -72,7 +72,7 @@ def register():
                 return jsonify({'error': 'An account with this phone number already exists. Please use a different phone number.'})
             else:
                 try:
-                    new_user = Users(firstname=firstname, lastname=lastname, email=email, phone_nember=phone_number, password=password)
+                    new_user = Users(firstname=firstname, lastname=lastname, email=email, phone_number=phone_number, password=password)
                     db.session.add(new_user)
                     db.session.commit()
                     send_verification_email(new_user)
