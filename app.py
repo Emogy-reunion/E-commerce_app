@@ -15,7 +15,7 @@ from routes.profile import profile
 from routes.update import edit
 from routes.delete import clear
 from routes.cart import cart_bp
-from utils.verification import mail
+from utils.verification import mail, send_verification_email
 from flask_login import LoginManager
 
 
