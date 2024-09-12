@@ -29,6 +29,7 @@ class Users(UserMixin, db.Model):
     verified = db.Column(db.Boolean, default=False)
     sneakers = db.relationship('Sneakers', lazy=True, backref='user', cascade='all, delete-orphan')
     cart = db.relationship('Cart', uselist=False, lazy=True, backref='user', cascade='all, delete-orphan')
+    orders = db.relationship('Orders', back_populates='user', lazy=True)
 
     def __init__(self, firstname, lastname, email, phone_number, password, role='member'):
         self.first_name = firstname
@@ -135,7 +136,7 @@ class CartItems(db.Model):
     '''
     stores the items a user adds to cart
     '''
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
     cart_id = db.Column(db.Integer, db.ForeignKey('cart.id'), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     subtotal = db.Column(db.Float, nullable=False)
@@ -152,3 +153,33 @@ class CartItems(db.Model):
         self.subtotal = subtotal
         self.sneaker_id = sneaker_id
         self.size = size
+
+class Orders(db.Model):
+    '''
+    stores the user's orders
+    '''
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    total_amount = db.Column(db.Float, nullable=False)
+    user = db.relationship('Users', back_populates='orders')
+    ordered_items = db.relationship('OrderItems', backref='order', lazy=True)
+
+    def __init__(self, user_id, total_amount):
+        '''
+        initializes the order
+        '''
+        self.user_id = user_id
+        self.total_amount = total_amount
+
+class OrderItems(db.Model):
+    '''
+    stores the items ordered in a single order
+    '''
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
+    size = db.Column(db.Integer, nullable=False)
+    subtotal = db.Float(db.Integer, nullable=False)
+    order_id = db.Column(db.Integer, db.ForeignKey('orders.id'), nullable=False)
+    sneaker_id = db.Column(db.Integer, db.ForeignKey('sneakers.id'), nullable=False)
+    ordered_item = db.relationship('Sneakers', backref='orders')
+
