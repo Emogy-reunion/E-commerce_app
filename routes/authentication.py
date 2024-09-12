@@ -58,15 +58,21 @@ def register():
             lastname = form.lastname.data
             email = form.email.data.lower()
             password = form.password.data
+            phone_number = form.phone_number.data
             
             # check if the user exists
             user = Users.query.filter_by(email=email).first()
 
             if user:
                 return jsonify({'error': 'An account with this email already exists. Please login or use a different email'})
+
+
+            existing_phone_user = Users.query.filter_by(phone_number=phone_number).first()
+            if existing_phone_user:
+                return jsonify({'error': 'An account with this phone number already exists. Please use a different phone number.'})
             else:
                 try:
-                    new_user = Users(firstname=firstname, lastname=lastname, email=email, password=password)
+                    new_user = Users(firstname=firstname, lastname=lastname, email=email, phone_number=phone_number, password=password)
                     db.session.add(new_user)
                     db.session.commit()
                     send_verification_email(new_user)
