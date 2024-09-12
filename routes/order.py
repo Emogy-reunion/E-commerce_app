@@ -21,5 +21,7 @@ def place_holder():
     user_id = current_user.id
     form = CheckoutForm()
 
-    cart = Cart.query.options(joinedload(Cart.items).joinedload
+    cart = Cart.query.options(joinedload(Cart.items).joinedload(Cart.cart_user).joinedload(CartItems.item).joinedload(Sneaker.images)).filter_by(user_id=user_id).first()
+
+
 
