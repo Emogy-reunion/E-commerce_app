@@ -161,6 +161,7 @@ class Orders(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     total_amount = db.Column(db.Float, nullable=False)
+    status = db.Column(db.String(50), nullable=False)
     user = db.relationship('Users', back_populates='orders')
     ordered_items = db.relationship('OrderItems', backref='order', lazy=True)
 
