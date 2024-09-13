@@ -15,6 +15,7 @@ class Config:
     MAIL_PORT = 587
     MAIL_USE_TLS = True
     MAIL_USE_SSL = False
+    WTF_CSRF_ENABLED = False
     MAIL_USERNAME = os.getenv('EMAIL')
     MAIL_PASSWORD = os.getenv('PASSWORD')
     UPLOAD_FOLDER = 'static/uploads'

@@ -20,7 +20,7 @@ def login():
             password = form.password.data
             remember = form.remember.data
 
-            user = User.query.filter_by(email=email).first()
+            user = Users.query.filter_by(email=email).first()
 
             if user:
                 if user.verified:
