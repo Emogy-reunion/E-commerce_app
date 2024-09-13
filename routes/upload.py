@@ -104,7 +104,7 @@ def upload_details(sneaker_id):
     '''
     renders page to display upload details
     '''
-    sneaker = db.session.get(Sneakers, sneaker_id)
+    sneaker = Sneakers.query.options(joinedload(Sneakers.images)).filter(sneaker.id == sneaker_id).first()
     return render_template('upload_details.html', sneaker=sneaker)
 
 @post.route('/men')
@@ -156,7 +156,7 @@ def product_details(product_id):
     '''
     form = SizeForm()
 
-    sneaker = db.session.get(Sneakers, product_id)
+    sneaker = Sneakers.query.options(joinedload(Sneakers.images)).filter(sneaker.id == sneaker_id).first()
     return render_template('product_details.html', sneaker=sneaker, form=form)
 
 @post.route('/collections')
@@ -179,5 +179,5 @@ def guest_product_details(product_id):
     '''
     form = SizeForm()
 
-    sneaker = db.session.get(Sneakers, product_id)
+    sneaker = Sneakers.query.options(joinedload(Sneakers.images)).filter(sneaker.id == sneaker_id).first()
     return render_template('guest_product_details.html', sneaker=sneaker, form=form)
