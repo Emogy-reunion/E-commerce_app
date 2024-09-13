@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang='en'>
+	<head>
+		<meta charset='utf-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+		<link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/index.css') }}">
+		<link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/guest_nav.css') }}">
+		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+		<title>Home</title>
+	</head>
+	<body>
+		<nav>
+			<div id='logo'>
+				<img src='/static/images/logo.png' alt='company logo'>
+			</div>
+
+			<ul>
+				<li><a href="{{ url_for('dash.index') }}">Home</a></li>
+				<li><a href="{{ url_for('post.collections') }}">Collections</a></li>
+				<li><a href="{{ url_for('auth.login') }}">Login</a></li>
+				<li><a href="{{ url_for('auth.register') }}">Join us</a></li>
+			</ul>
+
+			<div id='search'>
+				<a href="{{ url_for('find.guest_search_template') }}"><i class='bx bx-search'></i></a>
+			</div>
+		</nav>
+
+		<section>
+			<div id='home-text'>
+				<h1>EM KICKS SHOP</h1>
+				<h3>Elevate every step</h3>
+				<p>Life has been a journey since decades—ensure each step is meaningful by embracing style, comfort, and confidence. Enhance your journey with the ideal pair from EM KICKS.</p>
+				
+				<div id='button'>
+					<a href="{{ url_for('auth.register') }}">Join us</a>
+				</div>
+
+				<div id='social-icons'>
+					<a href="mailto:eastmonarchkicks@gmail.com" target="_blank" rel="noopener noreferrer"><i class="bx bxl-gmail"></i></a>
+					<a href="https://wa.me/254743354888" target="_blank" rel="noopener noreferrer"><i class="bx bxl-whatsapp"></i></a>
+					<a href="https://instagram.com/yourusername" target="_blank" rel="noopener noreferrer"><i class="bx bxl-instagram"></i></a>
+					<a href="https://facebook.com/yourusername" target="_blank" rel="noopener noreferrer"><i class="bx bxl-facebook"></i></a>
+				</div>
+			</div>
+
+			<div id='home-image'>
+				<div id='image'>
+					<img src='/static/images/home.png' alt='home image'>
+				</div>
+			</div>
+		</section>
+
+
+	</body>
+</html>
+
