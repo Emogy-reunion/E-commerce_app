@@ -165,15 +165,19 @@ class Orders(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     total_amount = db.Column(db.Float, nullable=False)
     status = db.Column(db.String(50), nullable=False)
+    shipping_address = db.Column(db.String(50), nullable=False)
+    phone_number = db.Column(db.String(20), nullable=False)
     user = db.relationship('Users', back_populates='orders')
     ordered_items = db.relationship('OrderItems', back_populates='order', lazy=True)
 
-    def __init__(self, user_id, total_amount):
+    def __init__(self, user_id, total_amount, shipping_address, phone_number):
         '''
         initializes the order
         '''
         self.user_id = user_id
         self.total_amount = total_amount
+        self.shipping_address = shipping_address
+        self.phone_number = phone_number
 
 class OrderItems(db.Model):
     '''
