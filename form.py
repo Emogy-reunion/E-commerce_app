@@ -11,11 +11,11 @@ class RegistrationForm(FlaskForm):
         Length(min=2, max=45, message='Name must be between 2 and 45 characters')])
     lastname = StringField('Last name', validators=[
         DataRequired(),
-        Length(min=2, max=45 message='Name must be between 2 and 45 characters')])
+        Length(min=2, max=45, message='Name must be between 2 and 45 characters')])
     email = StringField('Email', validators=[
         Email(),
         InputRequired(),
-        Length(min=5, max=45,message='Name must be between 2 and 45 characters')])
+        Length(min=5, max=45, message='Name must be between 2 and 45 characters')])
     phone_number = StringField('Phone Number', validators=[
         DataRequired(),
         Regexp(r'^\+2547\d{8}$', message="Phone number must start with +2547 followed by 8 digits.")
