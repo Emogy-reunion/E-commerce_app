@@ -11,7 +11,7 @@ class RegistrationForm(FlaskForm):
         Length(min=2, max=45, message='Name must be between 2 and 45 characters')])
     lastname = StringField('Last name', validators=[
         DataRequired(),
-        Length(min=2, max=45 message='Name must be between 2 and 45 characters'))])
+        Length(min=2, max=45 message='Name must be between 2 and 45 characters')])
     email = StringField('Email', validators=[
         Email(),
         InputRequired(),
