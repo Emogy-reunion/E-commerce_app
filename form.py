@@ -129,3 +129,16 @@ class CheckoutForm(FlaskForm):
         Regexp(r'^\+2547\d{8}$', message="Phone number must start with +2547 followed by 8 digits.")
         ])
     submit = SubmitField('Order now')
+
+class UpdateOrderStatus(FlaskForm):
+    '''
+    This is where the admin updates the status of the order
+    '''
+    status = SelectField('Order Status', choices=[
+        ('not_paid', 'Not Paid'),
+        ('paid', 'Paid'),
+        ('processing', 'Processing'),
+        ('shipped', 'Shipped'),
+        ('delivered', 'Delivered')
+    ], validators=[DataRequired()])
+    submit = SubmitField('Update Status')
