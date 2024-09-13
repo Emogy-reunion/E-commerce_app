@@ -53,7 +53,7 @@ def place_holder():
                 order = Order(
                         user_id=user_id,
                         total_amount=total_amount,
-                        status='not paid',
+                        status='not_paid',
                         shipping_address=shipping_address,
                         phone_number=phone_number
                         )
