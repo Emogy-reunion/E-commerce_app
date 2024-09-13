@@ -158,3 +158,26 @@ def product_details(product_id):
 
     sneaker = db.session.get(Sneakers, product_id)
     return render_template('product_details.html', sneaker=sneaker, form=form)
+
+@post.route('/collections')
+def collections():
+    '''
+    fetch gender neutral products and render them
+    '''
+
+    page = request.args.get('page', 1, type=int)
+    per_page = 12
+
+    results = Sneakers.query.options(joinedload(Sneakers.images)).order_by(Sneakers.id.desc())
+    sneakers = results.paginate(page=page, per_page=per_page)
+    return render_template('collections.html', sneakers=sneakers)
+
+@post.route('/guest_product_details/<int:product_id>')
+def guest_product_details(product_id):
+    '''
+    renders details about the products
+    '''
+    form = SizeForm()
+
+    sneaker = db.session.get(Sneakers, product_id)
+    return render_template('guest_product_details.html', sneaker=sneaker, form=form)
