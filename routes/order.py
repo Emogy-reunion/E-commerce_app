@@ -10,7 +10,7 @@ from flask_login import login_required, current_user
 
 order = Blueprint('order', __name__)
 
-@order.route('place_order', methods=['GET', 'POST'])
+@order.route('/place_order', methods=['GET', 'POST'])
 @login_required
 def place_holder():
     '''
@@ -102,7 +102,7 @@ def view_orders():
     else:
         return render_template('orders.html', orders=orders)
 
-@order.route('admin_orders_view')
+@order.route('/admin_orders_view')
 @login_required
 @role_required('admin')
 def admin_orders_view():
