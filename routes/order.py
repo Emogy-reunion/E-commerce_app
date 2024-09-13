@@ -1,7 +1,8 @@
 '''
 This model contains routes that work on the order
 '''
-from flask import Blueprint
+from flask import Blueprint, render_template, jsonify
+from utils.role import role_required
 from model import db, Users, Sneakers, Cart, CartItems, Order, OrderItems
 from form import CheckoutForm
 from flask_login import login_required, current_user
@@ -21,7 +22,12 @@ def place_holder():
     user_id = current_user.id
     form = CheckoutForm()
 
-    cart = Cart.query.options(joinedload(Cart.items).joinedload(Cart.cart_user).joinedload(CartItems.item).joinedload(Sneaker.images)).filter_by(user_id=user_id).first()
+    cart = Cart.query.options(
+            joinedload(Cart.items).
+            joinedload(Cart.cart_user).
+            joinedload(CartItems.item).
+            joinedload(Sneaker.images)
+            ).filter_by(user_id=user_id).first()
 
     if not cart or not cart.items:
         '''
@@ -85,7 +91,30 @@ def view_orders():
     user_id = current_user.id
 
     # retrieve the user's orders
-    orders = Orders.query.options(joinedload(Orders.user).joinedload(Orders.ordered_items).joinedload(OrderedItems.ordered_item)).filter_by(user_id=user_id).all()
+    orders = Orders.query.options(
+            joinedload(Orders.user).
+            joinedload(Orders.ordered_items).
+            joinedload(OrderedItems.ordered_item)
+            ).filter_by(user_id=user_id).all()
+
+    if not orders:
+        return render_template('orders.html', orders=None)
+    else:
+        return render_template('orders.html', orders=orders)
+
+@order.route('admin_orders_view')
+@login_required
+@role_required('admin')
+def admin_orders_view():
+    '''
+    This method retrieves all orders in the database
+    If there are no orders, it returns None
+    '''
+    orders = Orders.query.options(
+            joinedload(Orders.user).
+            joinedload(Orders.ordered_items).
+            joinedload(OrderedItems.ordered_item)
+            ).all()
 
     if not orders:
         return render_template('orders.html', orders=None)
