@@ -3,7 +3,7 @@ This model contains routes that work on the order
 '''
 from flask import Blueprint, render_template, jsonify
 from utils.role import role_required
-from model import db, Users, Sneakers, Cart, CartItems, Order, OrderItems
+from model import db, Users, Sneakers, Cart, CartItems, Orders, OrderItems
 from form import CheckoutForm
 from flask_login import login_required, current_user
 
