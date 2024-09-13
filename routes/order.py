@@ -40,10 +40,17 @@ def place_holder():
             ensures that the form data is valid
             '''
             phone_number = form.phone_number.data
+            shipping_address = form.shipping_address.data
 
             try:
                 # create the order
-                order = Order(user_id=user_id, total_amount=total_amount, status='not paid')
+                order = Order(
+                        user_id=user_id,
+                        total_amount=total_amount,
+                        status='not paid',
+                        shipping_address=shipping_address,
+                        phone_number=phone_number
+                        )
                 db.session.add(order)
                 db.session.commit()
 
@@ -63,8 +70,24 @@ def place_holder():
             except Exception as e:
                 db.session.rollback()
                 return jsonify({'error': 'An unexpected error occured!'})
+        else:
+            return jsonify({'errors': form.errors})
+        
+        # handle payments for successfully place orders
 
-            # handle payments
+@order.route('/view_orders')
+@login_required
+def view_orders():
+    '''
+    This method retrieves and returns the user's orders.
+    If there are no orders, it returns None.
+    '''
+    user_id = current_user.id
 
+    # retrieve the user's orders
+    orders = Orders.query.options(joinedload(Orders.user).joinedload(Orders.ordered_items).joinedload(OrderedItems.ordered_item)).filter_by(user_id=user_id).all()
 
-
+    if not orders:
+        return render_template('orders.html', orders=None)
+    else:
+        return render_template('orders.html', orders=orders)
