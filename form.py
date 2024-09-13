@@ -6,9 +6,16 @@ class RegistrationForm(FlaskForm):
     '''
     Represents the fields of a registration form
     '''
-    firstname = StringField('First name', validators=[DataRequired(), Length(min=2, max=30)])
-    lastname = StringField('Last name', validators=[DataRequired(), Length(min=2, max=30)])
-    email = StringField('Email', validators=[Email(), InputRequired(), Length(max=30)])
+    firstname = StringField('First name', validators=[
+        DataRequired(),
+        Length(min=2, max=45, message='Name must be between 2 and 45 characters')])
+    lastname = StringField('Last name', validators=[
+        DataRequired(),
+        Length(min=2, max=45, message='Name must be between 2 and 45 characters')])
+    email = StringField('Email', validators=[
+        Email(),
+        InputRequired(),
+        Length(min=5, max=45, message='Name must be between 2 and 45 characters')])
     phone_number = StringField('Phone Number', validators=[
         DataRequired(),
         Regexp(r'^\+2547\d{8}$', message="Phone number must start with +2547 followed by 8 digits.")
@@ -116,8 +123,22 @@ class CheckoutForm(FlaskForm):
     '''
     allows users to enter checkout details
     '''
+    shipping_address =  StringField('Pickup location', validators=[InputRequired(),Length(min=8, max=45, message="Must be at least 3 characters long and not more than 45.")])
     phone_number = StringField('Phone Number', validators=[
         DataRequired(),
         Regexp(r'^\+2547\d{8}$', message="Phone number must start with +2547 followed by 8 digits.")
         ])
     submit = SubmitField('Order now')
+
+class UpdateOrderStatus(FlaskForm):
+    '''
+    This is where the admin updates the status of the order
+    '''
+    status = SelectField('Order Status', choices=[
+        ('not_paid', 'Not Paid'),
+        ('paid', 'Paid'),
+        ('processing', 'Processing'),
+        ('shipped', 'Shipped'),
+        ('delivered', 'Delivered')
+    ], validators=[DataRequired()])
+    submit = SubmitField('Update Status')
