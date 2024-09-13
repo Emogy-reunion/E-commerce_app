@@ -186,7 +186,7 @@ class OrderItems(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     size = db.Column(db.Integer, nullable=False)
-    subtotal = db.Float(db.Integer, nullable=False)
+    subtotal = db.Column(db.Float, nullable=False)
     order_id = db.Column(db.Integer, db.ForeignKey('orders.id'), nullable=False)
     order = db.relationship('Orders', back_populates='ordered_items', lazy=True)
     sneaker_id = db.Column(db.Integer, db.ForeignKey('sneakers.id'), nullable=False)
