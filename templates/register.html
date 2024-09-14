@@ -5,6 +5,7 @@
 		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
 		<link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/register.css') }}">
 		<link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/guest_nav.css') }}">
+		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 		<title>Join us</title>
 	</head>
 	<body>
@@ -46,7 +47,11 @@
 
 				<div id='container'>
 
-					<h1>Create account</h1>
+					<div id='crown'>
+						<img src='/static/images/logo.png' alt='company logo'>
+					</div>
+
+					<h1>Claim Your Crown</h1>
 					<div class='alert'>
 						<p></p>
 					</div>
@@ -74,7 +79,7 @@
 	
 						<div>
                 	                                {{ form.phone_number.label }}<br>
-                        	                        {{ form.email(size=32, placeholder='Enter your phone number (+254)') }}
+                        	                        {{ form.phone_number(size=32, placeholder='Enter your phone number (+254)') }}
                                 	                <p class='error' id='phone_number-error'></p>
 	                              	         </div>
 

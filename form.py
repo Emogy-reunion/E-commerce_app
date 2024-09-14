@@ -16,8 +16,8 @@ class RegistrationForm(FlaskForm):
         Email(),
         InputRequired(),
         Length(min=5, max=45, message='Name must be between 2 and 45 characters')])
-    phone_number = StringField('Phone Number', validators=[
-        DataRequired(),
+    phone_number = StringField('Phone number', validators=[
+        InputRequired(),
         Regexp(r'^\+2547\d{8}$', message="Phone number must start with +2547 followed by 8 digits.")
         ])
     password = PasswordField('Password', validators=[
