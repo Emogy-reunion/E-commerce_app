@@ -31,22 +31,20 @@ def resend_verification_email():
     '''
     form = ReverificationForm()
 
-    if request.method == 'GET':
-        return render_template('reverification.html', form=form)
-    else:
-        if form.validate_on_submit():
-            email = form.email.data.lower()
+    if form.validate_on_submit():
+        email = form.email.data.lower()
 
-            user = Users.query.filter_by(email=email).first()
-            if user:
-                if user.verified:
-                    flash('Already verified. Please login!', 'success')
-                    return redirect(url_for('auth.login'))
-                else:
-                    send_verification_email(user)
-                    flash('A new verification email has been sent', 'success')
-                    return redirect(request.url)
+        user = Users.query.filter_by(email=email).first()
+        if user:
+            if user.verified:
+                flash('Already verified. Please login!', 'success')
+                return redirect(url_for('auth.login'))
             else:
-                flash('Incorrect email. Please try again!', 'error')
+                send_verification_email(user)
+                flash('A new verification email has been sent', 'success')
                 return redirect(request.url)
+        else:
+            flash('Incorrect email. Please try again!', 'error')
+            return redirect(request.url)
+     return render_template('reverification.html', form=form)
 
