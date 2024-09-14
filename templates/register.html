@@ -61,37 +61,37 @@
 	
 						<div>
 							{{ form.firstname.label }}<br>
-							{{ form.firstname(size=32, placeholder='Enter you first name') }}
+							{{ form.firstname(size=32) }}
 							<p class='error' id='firstname-error'><p>
 						</div>
 	
 						<div>
 							{{ form.lastname.label }}<br>
-							{{ form.lastname(size=32, placeholder='Enter your last name') }}
+							{{ form.lastname(size=32) }}
 							<p class='error' id='lastname-error'></p>
 						</div>
 		
 						<div>
 							{{ form.email.label }}<br>
-							{{ form.email(size=32, placeholder='Enter your email') }}
+							{{ form.email(size=32) }}
 							<p class='error' id='email-error'></p>
 						</div>
 	
 						<div>
                 	                                {{ form.phone_number.label }}<br>
-                        	                        {{ form.phone_number(size=32, placeholder='Enter your phone number (+254)') }}
+                        	                        {{ form.phone_number(size=32, placeholder='(+254)') }}
                                 	                <p class='error' id='phone_number-error'></p>
 	                              	         </div>
 
 						<div>
 							{{ form.password.label }}<br>
-							{{ form.password(id='password', size=32, placeholder='Enter your password') }}
+							{{ form.password(id='password', size=32) }}
 							<p class='error' id='password-error'></p>
 						</div>
 
 						<div>
 							{{ form.confirmpassword.label }}<br>
-							{{ form.confirmpassword(id='confirmpassword', size=32, placeholder='Confirm your password') }}
+							{{ form.confirmpassword(id='confirmpassword', size=32) }}
 							<p class='error' id='confirmpassword-error'></p>
 						</div>
 

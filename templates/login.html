@@ -42,12 +42,12 @@
 				{{ form.hidden_tag() }}
 
 				<div>
-					{{ form.email.label }}<br> {{ form.email(size=32, placeholder='Enter your email') }}
+					{{ form.email.label }}<br> {{ form.email(size=32) }}
 					<p class='error' id='email-error'></p>
 				</div>
 
 				<div>
-					{{ form.password.label }}<br> {{ form.password(id='password', size=32, placeholder='Enter your password') }}
+					{{ form.password.label }}<br> {{ form.password(id='password', size=32) }}
 					<p class='error' id='password-error'></p>
 				</div>
 

@@ -73,7 +73,7 @@ section {
 	align-items: center;
 	flex-direction: column;
 	border-radius: 8px;
-        background-color: #b8825e;
+	background-color: #958878;
 }
 
 #crown {
@@ -87,7 +87,7 @@ section {
 }
 
 #container h1 {
-	color: #fdf0d5;
+	color: gold;
 }
 
 .alert {
@@ -147,7 +147,7 @@ input[type='submit'] {
 	padding: 10px 20px;
 	border: none;
 	color: white;
-	background-color: #f85b10;
+	background-color: #0598ce;
 	font-size: 15px;
 	cursor: pointer;
 	border-radius: 6px;
