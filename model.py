@@ -64,7 +64,7 @@ class Users(UserMixin, db.Model):
         '''
         try:
             data = serializer.loads(token, max_age=3600)
-            return db.session.query(Users, data['user_id'])
+            return db.session.get(Users, data['user_id'])
         except Exception as e:
             return None
 
