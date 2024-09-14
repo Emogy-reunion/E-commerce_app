@@ -49,7 +49,7 @@ def input_password(user_id):
         if form.validate_on_submit():
             password = form.password.data
 
-            user = db.session.query.get(Users, user_id).first()
+            user = db.session.get(Users, user_id).first()
             try:
                 user.set_password(password)
                 db.session.commit()
