@@ -1,7 +1,7 @@
 '''
 This module handles user password reset
 '''
-from flask import Blueprint, render_template, redirect, request, flash, url_for
+from flask import Blueprint, render_template, redirect, request, flash, url_for, jsonify
 from model import Users, db
 from utils.reset import send_reset_email
 from form import ForgotPassword, ResetForm
