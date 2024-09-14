@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang='en'>
+	<head>
+		<meta charset='utf-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+		<link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='register.css') }}">
+		<link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='guest_nav.css') }}">
+		<title>Join us</title>
+	</head>
+	<body>
+		<nav>
+			<div id='logo'>
+				<img src='/static/images/logo.png' alt='company logo'>
+			</div>
+
+			<ul>
+				<li><a href="{{ url_for('dash.index') }}">Home</a></li>
+				<li><a href="{{ url_for('post.collections') }}">Collections</a></li>
+				<li><a href="{{ url_for('auth.login') }}">Login</a></li>
+				<li><a href="{{ url_for('auth.register') }}">Join us</a></li>
+			</ul>
+
+			<div id='search'>
+				<a href="{{ url_for('find.guest_search_template') }}"><i class='bx bx-search'></i></a>
+			</div>
+		</nav>
+
+		<section>
+			<div id='sign-text'>
+				<div>
+					<h2>Why sign up?</h3>
+					<ul>
+						<li>It's free.</li>
+						<li>Faster Checkout</li>
+						<li>Order Tracking</li>
+						<li>Access to Curated Collections by Gender</li>
+					</ul>
+				</div>
+
+				<div>
+					<img src='/static/images/signup.png'>
+				</div>
+			</div>
+
+			<div id='container'>
+
+				<div class='alert'>
+					<p></p>
+				</div>
+
+				<form id='register'>
+					{{ form.hidden_tag() }}
+
+					<div>
+						{{ form.firstname.label }}<br>
+						{{ form.firstname(size(32), placeholder('Enter you first name')) }}
+						<p class='error' id='firstname-error'><p>
+					</div>
+
+					<div>
+						{{ form.lastname.label }}<br>
+						{{ form.lastname(size=32, placeholder='Enter your last name') }}
+						<p class='error' id='lastname-error'></p>
+					</div>
+
+					<div>
+						{{ form.email.label }}<br>
+						{{ form.email(size=32, placeholder='Enter your email') }}
+						<p class='error' id='email-error'></p>
+					</div>
+
+					<div>
+                                                {{ form.phone_number.label }}<br>
+                                                {{ form.email(size=32, placeholder='Enter your phone number') }}
+                                                <p class='error' id='phone_number-error'></p>
+                                        </div>
+
+					<div>
+						{{ form.password.label }}<br>
+						{{ form.password(id='password', size=32, placeholder='Enter your password') }}
+						<p class='error' id='password-error'></p>
+					</div>
+
+					<div>
+						{{ form.confirmpassword.label }}<br>
+						{{ form.confirmpassword(id='confirmpassword', size=32, placeholder='Confirm your password') }}
+						<p class='error' id='confirmpassword-error'></p>
+					</div>
+
+					<div>
+						{{ form.showpassword.label }} {{ form.showpassword(id='show') }}
+					</div>
+	
+					<div id='button'>
+						{{ form.submit() }}
+					</div>
+
+					<p>Already have an account? <a href="{{ url_for('auth.login') }}">Login</a>
+				</form>
+			</div>
+		</section>
+	</body>
+</html>
