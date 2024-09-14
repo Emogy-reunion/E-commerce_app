@@ -46,5 +46,5 @@ def resend_verification_email():
         else:
             flash('Incorrect email. Please try again!', 'error')
             return redirect(request.url)
-     return render_template('reverification.html', form=form)
+    return render_template('reverification.html', form=form)
 
