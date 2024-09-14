@@ -59,4 +59,4 @@ def input_password(user_id):
                 return jsonify({'error': 'An unexpected error occured, try again!'})
         else:
             return jsonify({'errors': form.errors})
-    return render_template('password.html', form=form)
+    return render_template('password.html', form=form, user_id=user_id)
