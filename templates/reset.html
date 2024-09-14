@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang='en'>
+	<head>
+		<meta charset='utf-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+		<title>Reset password</title>
+		<style>
+			body{
+				font-family: Arial, sans-serif;
+				background-color: #f4f4f4;
+				color: #333;
+				padding: 20px;
+			}
+
+			.container {
+            			background-color: #fff;
+            			padding: 20px;
+            			border-radius: 10px;
+            			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            			max-width: 600px;
+            			margin: auto;
+       	 		}
+        		
+			h2 {
+            			color: #007BFF;
+        		}
+        		
+			p {
+            			line-height: 1.6;
+        		}
+
+			.reset-button {
+				text-align: center;
+            			display: inline-block;
+            			background-color: #FF6347;
+            			color: white;
+            			padding: 10px 20px;
+            			text-decoration: none;
+            			border-radius: 5px;
+        		}
+
+			.reset-button:hover {
+				background-color: red;
+			}
+
+			.button {
+				display: flex;
+				justify-content: center;
+			}
+
+			.footer {
+				margin-top: 20px;
+				font-size: 0.9em;
+				text-align: center;
+            			color: #777;
+        		}
+		</style>
+
+	</head>
+	<body>
+		<div class="container">
+			<h2>Hello, {{ username }}!</h2>
+			<p>We received a request to reset your password. You can reset your password by clicking the button below:</p>
+			<div class='button'>
+                                <a href="{{ verification_url }}" class='reset-button'>Reset password</a>
+                        </div>
+			<p>If you did not request a password reset, please ignore this email. Your password will remain unchanged.</p>
+			<p>Thank you!</p>
+
+			<div class="footer">
+				&copy; 2024 Em Kicks Ke. All rights reserved.
+			</div>
+		</div>
+
+	</body>
+</html>
