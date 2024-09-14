@@ -24,7 +24,7 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	background-color: #b8825e;
+	background-color: #958878;
 	border-radius: 10px;
 }
 
@@ -95,7 +95,7 @@ input[type='submit'] {
 	padding: 10px 20px;
 	border: none;
 	color: white;
-	background-color: #f85b10;
+	background-color: #0598ce;
 	font-size: 15px;
 	cursor: pointer;
 	border-radius: 6px;
@@ -119,5 +119,5 @@ form a {
 }
 
 form a:hover {
-	color: #fff;
+	color: #0598ce;
 }
