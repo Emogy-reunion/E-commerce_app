@@ -16,5 +16,5 @@ def send_verification_email(user):
             recipients=[user.email]
             )
     msg.body = f"Click the following link to verify your email: {verification_url}"
-    msg.html = render_template('verification.html', username=user.firstname, verification_url=verification_url)
+    msg.html = render_template('verification.html', username=user.first_name, verification_url=verification_url)
     mail.send(msg)
