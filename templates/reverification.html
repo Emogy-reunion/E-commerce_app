@@ -17,7 +17,7 @@
 				{% endif %}
 			{% endwith %}
 
-			<form action="{{ url_for('auth.resend_verification') }}" method='POST'>
+			<form action="{{ url_for('verify.resend_verification_email') }}" method='POST'>
 				{{ form.hidden_tag() }}
 
 				<div>
