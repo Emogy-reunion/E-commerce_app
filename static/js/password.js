@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	});
 
-	// submit user data and handle response
+	// submit user data and handle response using promises
 	document.getElementById('reset').addEventListener('submit', event => {
 		event.preventDefault();
 
