@@ -37,7 +37,7 @@ def resend_verification_email():
         if form.validate_on_submit():
             email = form.email.data.lower()
 
-            user = Users.query.filter_by(email_email).first()
+            user = Users.query.filter_by(email=email).first()
             if user:
                 if user.verified:
                     flash('Already verified. Please login!', 'success')
