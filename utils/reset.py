@@ -9,7 +9,7 @@ from flask_mail import Message
 def send_reset_email(user):
     token = user.generate_token()
 
-    verifcation_url = url_for('reset.reset_password', token=token, _external=True)
+    verification_url = url_for('reset.reset_password', token=token, _external=True)
     msg = Message(
             subject='Reset password request',
             sender='eastmonarchkicks@gmail.com',

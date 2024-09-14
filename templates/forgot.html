@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang='en'>
+	<head>
+		<meta charset='ut-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+		<link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/forgot.css') }}">
+		<title>Forgot password</title>
+	</head>
+
+	<body>
+		<section>
+			<div id='image'>
+				<img src='/static/images/forgot.jpeg' alt='forgot password'>
+			</div>
+
+			<div id='container'>
+				<h1>Reset password</h1>
+				<p>Enter email associated with your account and we will send an email with instructions to reset your password.</p>
+
+				{% with messages=get_flashed_messages(with_categories=true) %}
+					{% if messages %}
+						{% for category, message  in messages %}
+							<div class='alert alert-{{ category }}'>
+								<p>{{ message }}</p>
+							</div>
+						{% endfor %}
+					{% endif %}
+				{% endwith %}
+
+				<form action="{{ url_for('reset.forgot_password') }}" method='POST'>
+					{{ form.hidden_tag() }}
+
+					<div>
+						{{ form.email.label }}<br>
+						{{ form.email(size=32) }}
+						{% if form.email.errors %}
+							{% for error in form.email.errors %}
+								<p class='error'>{{ error }}</p>
+							{% endfor %}
+						{% endif %}
+					</div>
+	
+					<div id='button'>
+						{{ form.submit() }}
+					</div>
+					<p>Login instead? <a href="{{ url_for('auth.login') }}">Sign in</a></p>
+				</form>
+			</div>
+		</section>
+	</body>
+</html>
