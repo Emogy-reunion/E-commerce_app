@@ -54,9 +54,13 @@ nav ul a:hover {
 	margin-right: 50px;
 }
 
-#search i {
-	font-size: 24px;
+#search a {
+	font-size: 30px;
 	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
 }
 
 #search:hover {
