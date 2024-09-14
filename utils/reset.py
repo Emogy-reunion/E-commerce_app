@@ -16,5 +16,5 @@ def send_reset_email(user):
             recipients=[user.email]
             )
     msg.body = f'Click the following link to reset your password: {verification_url}'
-    msg.html = render_template('reset.html', verification_url=verification_url, username=user.firstname)
+    msg.html = render_template('reset.html', verification_url=verification_url, username=user.first_name)
     mail.send(msg)
