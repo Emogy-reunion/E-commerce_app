@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+html {
+	overflow-x: hidden;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	background-color: black;
+	color: #fff;
+	width: 100%;
+	font-family: 'Poppins', sans-serif;
+}
+
+section {
+	display: flex;
+	margin-top: 80px;
+	margin: 15px;
+	width: 100%;
+}
+
+#sign-text {
+	width: 40%;
+	margin-top: 50px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+}
+
+#text h2 {
+	 color: #f85b10;
+	 margin-bottom: 10px;
+ }
+
+ #text {
+	 margin: 50px;
+	 width: 100%;
+	 box-sizing: border-box;
+ }
+
+ #image {
+	 margin: 0 50px;
+	 width: 200px;
+	 height: 200px;
+ }
+
+ #image img {
+	 margin-left: auto;
+	 width: 100%;
+	 height: 100%;
+ }
+
+ #form {
+	 width: 60%;
+	 margin-top: 50px;
+	 overflow-y: auto;
+	 margin-left: 40%;
+	 display: flex;
+	 justify-content: center;
+
+ }
+
+#container {
+	width: 350px;
+	padding: 10px 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	border-radius: 8px;
+        background-color: #b8825e;
+}
+
+#container h1 {
+	color: #fdf0d5;
+}
+
+.alert {
+	border: 1px solid transparent;
+	padding: 10px 20px;
+	border-radius: 5px;
+	max-width: 70%;
+}
+
+.alert-success {
+    	color: green;
+    	background-color: #dff0d8;
+    	border-color: #d6e9c6;
+}
+
+.alert-danger {
+    	color: red;
+    	background-color: #f2dede;
+    	border-color: #ebccd1;
+}
+
+.error {
+	color: red;
+}
+
+
+form {
+	margin-top: 10px;
+	box-sizing: border-box;
+	width: 100%;
+}
+
+form div {
+	margin: 10px 0;
+
+}
+
+form label {
+	margin: 10px 0;
+	color: #fff;
+}
+
+input[type='text'] {
+	padding: 10px;
+	border: 1px solid #b8825e;
+	box-sizing: border-box;
+	width: 100%;
+}
+
+input[type='password'] {
+	padding: 10px;
+	border: 1px solid #b8825e;
+	box-sizing: border-box;
+	width: 100%;
+}
+
+input[type='submit'] {
+	padding: 10px 20px;
+	border: none;
+	color: white;
+	background-color: #f85b10;
+	font-size: 15px;
+	cursor: pointer;
+	border-radius: 6px;
+}
+
+input[type='submit']:hover {
+	background-color: #fff;
+	color: black;
+	font-weight: bold;
+}
+
+
+#button {
+	display: flex;
+	justify-content: center;
+}
+
+form a {
+	text-decoration: none;
+	color: blue;
+}
+
+form a:hover {
+	color: #f85b10;
+}
