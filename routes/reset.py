@@ -34,10 +34,10 @@ def reset_password(token):
     user = Users.verify_token(token)
 
     if user:
-        return redirect(url_for('verify.input_password', user_id=user.id))
+        return redirect(url_for('reset.input_password', user_id=user.id))
     else:
         flash('The verification token is invalid or has expired!', 'danger')
-        return redirect(url_for('verify.forgot_password'))
+        return redirect(url_for('reset.forgot_password'))
 
 @reset.route('/input_password/<int:user_id>', methods=['GET', 'POST'])
 def input_password(user_id):
@@ -60,4 +60,3 @@ def input_password(user_id):
         else:
             return jsonify({'errors': form.errors})
     return render_template('password.html', form=form)
-
