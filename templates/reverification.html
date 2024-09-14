@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang='en'>
+	<head>
+		<meta charset='utf-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+		<link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/reverification.css') }}">
+	</head>
+	<body>
+		<div id='container'>
+			{% with messages=get_flashed_messages(with_categories=true) %}
+				{% if messages %}
+					{% for category, message in messages %}
+						<div class='alert alert-{{ category }}'>
+							<p>{{ message }}</p>
+						</div>
+					{% endfor %}
+				{% endif %}
+			{% endwith %}
+
+			<form action="{{ url_for('auth.resend_verification') }}" method='POST'>
+				{{ form.hidden_tag() }}
+
+				<div>
+					{{ form.email.label }}<br> {{ form.email(size=32, placeholder='Enter your email to reverify') }}
+					{% if form.email.errors %}
+						{% for error in form.errors %}
+							<p class='error'>{{ error }}</p>
+						{% endfor %}
+					{% endif %}
+				</div>
+
+				<div id='button'>
+					{{ form.submit() }}
+				</div>
+			</form>
+		</div>
+	</body>
+</html>
