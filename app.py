@@ -27,7 +27,7 @@ db.init_app(app)
 bcrypt.init_app(app)
 mail.init_app(app)
 loginmanager = LoginManager(app)
-loginmanager.login_view = 'login'
+loginmanager.login_view = 'auth.login'
 
 # register blueprints
 app.register_blueprint(auth)
