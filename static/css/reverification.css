@@ -17,7 +17,7 @@ body {
 }
 
 #container {
-	max-width: 450px;
+	width: 350px;
 	padding: 10px 30px;
 	display: flex;
 	flex-direction: column;
@@ -27,11 +27,16 @@ body {
 	border-radius: 10px;
 }
 
+#container p {
+	width: 90%;
+	box-sizing: border-box;
+
 .alert {
 	border: 1px solid transparent;
 	padding: 10px 20px;
 	border-radius: 5px;
-	width: 88%;
+	box-sizing: border-box;
+	width: 90%;
 }
 
 .alert-success {
@@ -59,6 +64,8 @@ body {
 
 form {
 	margin-top: 10px;
+	box-sizing: border-box;
+	width: 90%;
 }
 
 form div {
@@ -73,6 +80,8 @@ form label {
 input[type='text'] {
 	padding: 10px;
 	border: 1px solid #b8825e;
+	width: 100%;
+	box-sizing: border-box;
 }
 
 input[type='submit'] {
