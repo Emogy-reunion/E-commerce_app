@@ -62,15 +62,17 @@ def upload():
                         # save the filename to the database
                         image = Images(filename=filename, sneaker_id=sneaker.id)
                         db.session.add(image)
-                        db.session.commit()
                         uploads.append(filename)
-
-                        if uploads:
-                            return jsonify({'success': 'Uploaded successfully!'})
-                        else:
-                            return jsonify({'error': "Failed to upload"})
                     else:
+                        db.session.rollback()
                         return jsonify({"error": 'File extension not allowed!'})
+
+                db.session.commit()
+                if uploads:
+                    return jsonify({'success': 'Uploaded successfully!'})
+                else:
+                    return jsonify({'error': "Failed to upload"})
+
             except Exception as e:
                 db.session.rollback()
                 return jsonify({"error": 'An unexpected error occured. Please try again!'})
