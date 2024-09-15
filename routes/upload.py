@@ -1,7 +1,7 @@
 '''
 This module contains routes that handle uploads and retrieval
 '''
-from flask import Blueprint, jsonify, render_template, current_app, request
+from flask import Blueprint, jsonify, render_template, current_app, request, send_from_directory
 from form import UploadForm, SizeForm
 from model import db, Sneakers, Images
 from utils.allowed import allowed_file
@@ -96,6 +96,14 @@ def uploads():
     # paginate the results
     sneakers = results.paginate(page=page, per_page=per_page)
     return render_template('uploads.html', sneakers=sneakers)
+
+@post.route('/send_image/<filename>')
+def send_image(filename):
+    '''
+    retrieves images from the upload folder and sends them to the frontend
+    '''
+
+    return send_from_directory(current_app.config['UPLOAD_FOLDER'], filename)
 
 @post.route('/upload_details/<int:sneaker_id>')
 @login_required
