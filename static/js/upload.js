@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 	});
 
+
 	// handle form submission
 	document.getElementById('upload').addEventListener('submit', (event) => {
 		
@@ -89,25 +90,28 @@ document.addEventListener('DOMContentLoaded', () => {
 			} else if (data.error) {
 
 				// retrieve any other errors that might occur
+				const errorContainer = document.querySelector('.alert');
 				const errorElement = document.querySelector('.alert p');
 
 				errorElement.textContent = data.error;
-				errorElement.classList.add('alert-danger');
+				errorContainer.classList.add('alert-danger');
 
 				setTimeout(() => {
 					errorElement.textContent = '';
-					errorElement.classList.remove('alert-danger');
+					errorContainer.classList.remove('alert-danger');
 				}, 3000);
 			} else {
 
+				// handles successful uploads
+				const messageContainer = document.querySelector('.alert')
 				const messageElement = document.querySelector('.alert p');
 
 				messageElement.textContent = data.success;
-				messageElement.classList.add('alert-success');
+				messageContainer.classList.add('alert-success');
 
 
 				setTimeout(() => {
-					messageElement.classList.remove('alert-success');
+					messageContainer.classList.remove('alert-success');
 					window.location.href = '/uploads';
 				}, 2000);
 			}
