@@ -27,7 +27,7 @@ db.init_app(app)
 bcrypt.init_app(app)
 mail.init_app(app)
 loginmanager = LoginManager(app)
-loginmanager.login_view = 'login'
+loginmanager.login_view = 'auth.login'
 
 # register blueprints
 app.register_blueprint(auth)
@@ -73,7 +73,6 @@ def create_initial_admin():
                 db.session.rollback()
 
 create_initial_admin()
-
 
 
 if __name__ == "__main__":

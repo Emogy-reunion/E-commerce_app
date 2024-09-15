@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+html {
+	overflow-x: hidden;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	margin-top: 60px;
+	background-color: black;
+	color: #fff;
+	overflow-y: hidden;
+	width: 100%;
+	font-family: 'Poppins', sans-serif;
+}
+
+#image-preview {
+	width: 100%;
+	box-sizing: border-box;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	gap: 10px;
+}
+
+.item {
+	width: 200px;
+	height: 200px;
+	position: relative;
+}
+
+.item img {
+	width: 100%;
+	height: 100%;
+	border-radius: 5px;
+}
+
+.remove-button {
+	padding: 3px;
+	color: red;
+	background-color: black;
+	border: 1px solid gold;
+	border-radius: 50%;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	font-size: 14px;
+}
+
+.delete-button:hover {
+	color: white;
+}
+
+section {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-top: 30px;
+}
+
+#container {
+	width: 450px;
+	margin-top: 70px;
+	background-color: #958878;
+	padding: 20px;
+	border-radius: 8px;
+}
+
+.alert {
+	display: flex;
+	padding: 10px 20px;
+	border: 1px solid transparent;
+	border-radius: 5px;
+}
+
+.alert-success {
+    	color: green;
+    	background-color: #dff0d8;
+    	border-color: #d6e9c6;
+}
+
+.alert-danger {
+    	color: red;
+    	background-color: #f2dede;
+    	border-color: #ebccd1;
+}
+
+.error {
+	color: red;
+}
+
+form {
+	margin-top: 10px;
+	box-sizing: border-box;
+	width: 100%;
+}
+
+form div {
+	margin: 15px 0;
+
+}
+
+form label {
+	margin: 10px 0;
+}
+
+input[type='text'] {
+	padding: 10px;
+	border: 1px solid #b8825e;
+	box-sizing: border-box;
+        width: 100%;
+}
+
+select {
+	padding: 10px;
+}
+
+textarea {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 10PX;
+	line-height: 1.5;
+	resize: vertical;
+	height: 100px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+input[type='submit'] {
+	padding: 10px 20px;
+	border: none;
+	color: white;
+	background-color: #0598ce;
+	font-size: 15px;
+	cursor: pointer;
+	border-radius: 6px;
+}
+
+input[type='submit']:hover {
+	background-color: white;
+	color: black;
+	font-weight: bold;
+}
+
+
+#button {
+	display: flex;
+	justify-content: center;
+}

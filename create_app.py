@@ -15,4 +15,5 @@ def create_app():
     """
     app = Flask(__name__)
     app.config.from_object(Config)
+    Config.ensure_upload_folder() # ensures the upload folder exists
     return app
