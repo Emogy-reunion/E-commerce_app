@@ -23,6 +23,7 @@ def delete_post(sneaker_id):
 
     try:
         db.session.delete(sneaker)
+        db.session.commit()
         return jsonify({'success': 'Successfully deleted!'})
     except Exception as e:
         db.session.rollback()
