@@ -1,10 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
 
 	// handle form submission
-	document.getElementById('upload').addEventListener('submit', (event) => {
+	document.getElementById('update').addEventListener('submit', (event) => {
 		
 		event.preventDefault();
 
+
+		const element = document.getElementById('update');
+		const sneakerId = element.getAttribute('data-sneakerId');
 		const form = event.target;
 		const formData = new FormData(form);
 
@@ -12,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			'X-CSRFToken': form.csrf_token.value
 		};
 
-		fetch('/update_upload', {
+		fetch(`/update_product/${sneakerId}`, {
 			headers: headers,
 			method: 'PATCH',
 			body: formData
@@ -58,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				}, 3000);
 			} else {
 
-				// handles successful uploads
+				// handles successful updates
 				const messageContainer = document.querySelector('.alert')
 				const messageElement = document.querySelector('.alert p');
 
@@ -68,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 				setTimeout(() => {
 					messageContainer.classList.remove('alert-success');
+					messageElement.textContent = '';
 					window.location.href = '/uploads';
 				}, 2000);
 			}
