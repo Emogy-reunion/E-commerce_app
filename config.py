@@ -20,3 +20,11 @@ class Config:
     MAIL_PASSWORD = os.getenv('PASSWORD')
     UPLOAD_FOLDER = 'static/uploads'
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024 # set max upload size to 16mb
+
+    @staticmethod
+    def ensure_upload_folder():
+        """
+        Ensure the upload folder exists. If not, create it.
+        """
+        if not os.path.exists(Config.UPLOAD_FOLDER):
+            os.makedirs(Config.UPLOAD_FOLDER)
