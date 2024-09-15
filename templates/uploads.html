@@ -43,8 +43,8 @@
 							</a>
 							
 							<div class='details'>
-								<h5>Name: {{ sneaker.name }}</h5>
-								<h3>Price: {{ sneaker.price }}</h3>
+								<h3>{{ sneaker.name | title }}</h3>
+								<h5>ksh. {{ sneaker.price }}</h5>
 
 								<a href="{{ url_for('edit.update_product', product_id=sneaker.id) }}"><i class='bx bx-edit'></i></a>
 								<a href="#" class="delete" data-sneakerId="{{ sneaker.id }}"><i class='bx bxs-trash'></i></a>
@@ -56,18 +56,31 @@
 					<p>No sneakers to display</p>
 				{% endif %}
 
-				<div class='pagination-controls'>
+				
+				<div class='controls'>
 
 					{% if sneakers.has_prev %}
-						<a href="{{ url_for('post.uploads', page=sneakers.prev_num) }}"><button>Previous</button></a>
+					<a href="{{ url_for('post.uploads', page=sneakers.prev_num) }}">
+						<button>
+							<img src='/static/images/previous.png' alt='previous'>
+						</button>
+					</a>
 					{% else %}
-						<button disabled>Previous</button>
+	    					<button disabled>
+							<img src='/static/images/previous.png' alt='previous'>
+						</button>
 					{% endif %}
-
+	
 					{% if sneakers.has_next %}
-						<a href="{{ url_for('post.uploads', page=sneakers.next_num) }}"><button>Next</button></a>
+					<a href="{{ url_for('post.uploads', page=sneakers.next_num) }}">
+						<button>
+							<img src='/static/images/next.png' alt='next'>
+						</button>
+					</a>
 					{% else %}
-						<button disabled>Next</button>
+					<button disabled>
+						<img src='/static/images/next.png' alt='next'>
+					</button>
 					{% endif %}
 				</div>
 			</div>
