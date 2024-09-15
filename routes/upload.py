@@ -1,7 +1,7 @@
 '''
 This module contains routes that handle uploads and retrieval
 '''
-from flask import Blueprint, jsonify, render_template, current_app, request
+from flask import Blueprint, jsonify, render_template, current_app, request, send_from_directory
 from form import UploadForm, SizeForm
 from model import db, Sneakers, Images
 from utils.allowed import allowed_file
@@ -62,15 +62,17 @@ def upload():
                         # save the filename to the database
                         image = Images(filename=filename, sneaker_id=sneaker.id)
                         db.session.add(image)
-                        db.session.commit()
                         uploads.append(filename)
-
-                        if uploads:
-                            return jsonify({'success': 'Uploaded successfully!'})
-                        else:
-                            return jsonify({'error': "Failed to upload"})
                     else:
+                        db.session.rollback()
                         return jsonify({"error": 'File extension not allowed!'})
+
+                db.session.commit()
+                if uploads:
+                    return jsonify({'success': 'Uploaded successfully!'})
+                else:
+                    return jsonify({'error': "Failed to upload"})
+
             except Exception as e:
                 db.session.rollback()
                 return jsonify({"error": 'An unexpected error occured. Please try again!'})
@@ -96,6 +98,14 @@ def uploads():
     # paginate the results
     sneakers = results.paginate(page=page, per_page=per_page)
     return render_template('uploads.html', sneakers=sneakers)
+
+@post.route('/send_image/<filename>')
+def send_image(filename):
+    '''
+    retrieves images from the upload folder and sends them to the frontend
+    '''
+
+    return send_from_directory(current_app.config['UPLOAD_FOLDER'], filename)
 
 @post.route('/upload_details/<int:sneaker_id>')
 @login_required

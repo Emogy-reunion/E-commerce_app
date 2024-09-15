@@ -24,7 +24,7 @@ body {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: flex-start;
-	gap: 10px;
+	gap: 15px;
 }
 
 .item {
@@ -43,16 +43,11 @@ body {
 	padding: 3px;
 	color: red;
 	background-color: black;
-	border: 1px solid gold;
 	border-radius: 50%;
 	position: absolute;
 	top: 5px;
 	right: 5px;
 	font-size: 14px;
-}
-
-.delete-button:hover {
-	color: white;
 }
 
 section {
@@ -71,7 +66,6 @@ section {
 }
 
 .alert {
-	display: flex;
 	padding: 10px 20px;
 	border: 1px solid transparent;
 	border-radius: 5px;

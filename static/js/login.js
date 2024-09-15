@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 const errorElement = document.querySelector('.alert p');
                                 errorElement.textContent = '';
 
-				errorElement.textContent = data.unverified;
+				errorElement.textContent = data.verify;
                                 errorContainer.classList.add('alert-danger');
 
 				setTimeout(() => {
