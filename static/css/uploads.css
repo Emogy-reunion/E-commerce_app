@@ -13,7 +13,89 @@ body {
         margin-top: 60px;
         background-color: black;
         color: #fff;
-        overflow-y: hidden;
         width: 100%;
+	min-height: 100vh;
         font-family: 'Poppins', sans-serif;
+}
+
+section {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	padding: 20px;
+}
+
+section h1 {
+	color: #f85b10;
+}
+
+#container {
+	margin-top: 20px;
+	box-sizing: border-box;
+	width: 900px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 15px;
+}
+
+.item {
+	width: 200px;
+	border-radius: 10px;
+}
+
+.image {
+	width: 100%;
+	height: 150px;
+}
+
+.image img {
+	width: 100%;
+	height: 100%;
+}
+
+.details {
+	padding: 5px;
+}
+
+.details h5 {
+	color: #f85b10;
+}
+
+.details a {
+	text-decoration: none;
+	font-size: 20px;
+	color: white;
+}
+
+.details a:hover {
+	color: blue;
+}
+
+.controls {
+	position: fixed;
+	z-index: 999;
+	bottom: 10px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+
+button {
+	color: white;
+	width: 40px;
+	height: 40px;
+	background-color: #f85b20;
+	padding: 5px 10px;
+	border: none;
+	border-radius: 50%;
+}
+
+button img {
+	height: 80%;
+	width: 80%;
+}
+
+button:hover {
+	background-color: green;
 }
