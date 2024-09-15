@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang='en'>
+	<head>
+		<meta charset='utf-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+		<link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/update_upload.css') }}">
+		<title>Update</title>
+	</head>
+	<body>
+		<div id='container'>
+			<div class='alert'>
+				<p></p>
+			</div>
+
+			<form id='update' data-sneakerId="{{ sneaker_id }}">
+				{{ form.hidden_tag() }}
+
+				<div>
+					{{ form.name.label }}<br>
+					{{ form.name(size=32) }}
+					<p class='error' id='name-error'></p>
+				</div>
+
+				<div>
+                                        {{ form.price.label }}<br>
+                                        {{ form.price() }}
+                                        <p class='error' id='price-error'></p>
+                                </div>
+
+				<div>
+                                        {{ form.brand.label }}<br>
+                                        {{ form.brand(size=32) }}
+                                        <p class='error' id='name-error'></p>
+                                </div>
+
+				<div>
+                                        {{ form.gender.label }}<br>
+                                        {{ form.gender() }}
+                                        <p class='error' id='gender-error'></p>
+                                </div>
+
+				<div>
+                                        {{ form.description.label }}<br>
+                                        {{ form.description(size=330) }}
+                                        <p class='error' id='description-error'></p>
+                                </div>
+
+				<div id='button'>
+					{{ form.submit() }}
+				</div>
+			</form>
+		</div>
+		<script src="{{ url_for('static', filename='js/update_upload.js') }}"></script>
+	</body>
+</html>

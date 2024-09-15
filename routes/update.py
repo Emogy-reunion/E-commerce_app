@@ -24,6 +24,12 @@ def update_product(product_id):
 
     form = UpdateUpload()
 
+    form.name.data = sneaker.name
+    form.price.data = sneaker.price
+    form.brand.data = sneaker.brand
+    form.description.data = sneaker.description
+    form.gender.data = sneaker.gender
+
     if request.method == 'PATCH':
 
         form = UpdateUpload(request.form)
@@ -62,7 +68,7 @@ def update_product(product_id):
                 return jsonify({'error': 'An unexpected error occured. Try again!'})
         else:
             return jsonify({'errors': form.errors})
-    return render_template('update_upload.html', form=form, sneaker=sneaker)
+    return render_template('update_upload.html', form=form, sneaker_id=sneaker.id)
 
 @edit.route('/update_order_status/<int:order_id>', methods=['GET', 'POST'])
 @login_required
