@@ -12,7 +12,7 @@
 				<p></p>
 			</div>
 
-			<form id='update'>
+			<form id='update' data-sneakerId="{{ sneaker_id }}">
 				{{ form.hidden_tag() }}
 
 				<div>
@@ -50,5 +50,6 @@
 				</div>
 			</form>
 		</div>
+		<script src="{{ url_for('static', filename='js/update_upload.js') }}"></script>
 	</body>
 </html>
