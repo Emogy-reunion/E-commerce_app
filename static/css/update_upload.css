@@ -10,7 +10,6 @@ html {
 }
 
 body {
-	margin-top: 60px;
 	background-color: black;
 	color: #fff;
 	display: flex;
@@ -21,11 +20,28 @@ body {
 }
 
 #container {
+	margin: 30px;
 	width: 450px;
-	margin-top: 70px;
 	background-color: #958878;
 	padding: 20px;
 	border-radius: 8px;
+}
+
+#crown {
+	width: 114px;
+	height: 45px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#crown img {
+	width: 100%;
+	height: 100%:
+}
+
+#container h1 {
+	text-align: center;
+	color: gold;
 }
 
 .alert {
