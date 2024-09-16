@@ -114,7 +114,7 @@ def upload_details(sneaker_id):
     '''
     renders page to display upload details
     '''
-    sneaker = Sneakers.query.options(joinedload(Sneakers.images)).filter(sneaker.id == sneaker_id).first()
+    sneaker = Sneakers.query.options(joinedload(Sneakers.images)).filter(Sneakers.id == sneaker_id).first()
     return render_template('upload_details.html', sneaker=sneaker)
 
 @post.route('/men')
