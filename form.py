@@ -90,7 +90,7 @@ class SearchForm(FlaskForm):
     form to allow users to filter and search collections
     '''
     name = StringField('Shoe name', validators=[Optional(), Length(max=50, message='Must not exceed 50 characters!')])
-    min_price = FloatField('Min_price', validators=[Optional(), NumberRange(min=0, message="Minimum price must be greater than or equal to 0")])
+    min_price = FloatField('Minimum price', validators=[Optional(), NumberRange(min=0, message="Minimum price must be greater than or equal to 0")])
     max_price = FloatField('Maximum price', validators=[Optional(), NumberRange(min=0, message="Maximum price must be greater than or equal to 0")])
     brand = StringField('Brand', validators=[Optional(), Length(max=50, message='Must not exceed 50 characters!')])
     gender = SelectField('Gender', choices=[('', 'Select a gender'), ('unisex', 'Unisex'), ('men', 'Men'), ('women', 'Women')], validators=[Optional()])
