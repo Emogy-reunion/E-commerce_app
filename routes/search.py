@@ -1,11 +1,12 @@
 '''
 contains routes that handle database searching
 '''
-from flask import Blueprint, jsonify, render_template
+from flask import Blueprint, jsonify, render_template, request
 from flask_login import login_required
 from utils.role import role_required
-from model import Sneakers
+from model import Sneakers, Images
 from form import SearchForm
+from sqlalchemy.orm import joinedload
 
 
 find = Blueprint('find', __name__)
@@ -51,7 +52,7 @@ def admin_search():
     if brand:
         query = query.filter(Sneakers.gender.ilike(f"%{brand}%"))
 
-    sneakers = query.all()
+    sneakers = query.options(joinedload(Sneakers.images)).all()
 
     results = []
     
@@ -113,7 +114,7 @@ def member_search():
     if brand:
         query = query.filter(Sneakers.gender.ilike(f"%{brand}%"))
 
-    sneakers = query.all()
+    sneakers = query.options(joinedload(Sneakers.images)).all()
 
     results = []
 
@@ -173,7 +174,7 @@ def guest_search():
     if brand:
         query = query.filter(Sneakers.gender.ilike(f"%{brand}%"))
 
-    sneakers = query.all()
+    sneakers = query.options(joinedload(Sneakers.images)).all()
 
     results = []
 
