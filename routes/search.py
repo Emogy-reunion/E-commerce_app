@@ -1,11 +1,12 @@
 '''
 contains routes that handle database searching
 '''
-from flask import Blueprint, jsonify, render_template
+from flask import Blueprint, jsonify, render_template, request
 from flask_login import login_required
 from utils.role import role_required
-from model import Sneakers
+from model import Sneakers, Images
 from form import SearchForm
+from sqlalchemy.orm import joinedload
 
 
 find = Blueprint('find', __name__)
@@ -51,7 +52,7 @@ def admin_search():
     if brand:
         query = query.filter(Sneakers.gender.ilike(f"%{brand}%"))
 
-    sneakers = query.all()
+    sneakers = query.options(joinedload(Sneakers.images)).all()
 
     results = []
     
@@ -60,18 +61,15 @@ def admin_search():
         loop through the sneakers to extract individual properties
         '''
         results.append({
+            'id': sneaker.id,
             'name': sneaker.name,
             'price': sneaker.price,
-            'description': sneaker.description,
-            'gender': sneaker.gender,
-            'brand': sneaker.brand,
-            'filename': [image.filename for image in sneaker.images] if upload.images else None
+            'filename': sneaker.images[0].filename
             })
-
     if results:
-        return jsonify({'message': 'No collection available!'})
+        return jsonify(results)
     else:
-        return jsonify({'data': results})
+        return jsonify({'message': 'No collection available!'})
 
 @find.route('/member_search_template')
 @login_required
@@ -113,7 +111,7 @@ def member_search():
     if brand:
         query = query.filter(Sneakers.gender.ilike(f"%{brand}%"))
 
-    sneakers = query.all()
+    sneakers = query.options(joinedload(Sneakers.images)).all()
 
     results = []
 
@@ -122,18 +120,16 @@ def member_search():
         loop through the sneakers to extract individual properties
         '''
         results.append({
+            'id': sneaker.id,
             'name': sneaker.name,
             'price': sneaker.price,
-            'description': sneaker.description,
-            'gender': sneaker.gender,
-            'brand': sneaker.brand,
-            'filename': [image.filename for image in sneaker.images] if upload.images else None
+            'filename': sneaker.images[0].filename
             })
-
+        
     if results:
-        return jsonify({'message': 'No collection available!'})
+        return jsonify(results)
     else:
-        return jsonify({'data': results})
+        return jsonify({'message': 'No collection available!'})
 
 @find.route('/guest_search_template')
 def guest_search_template():
@@ -173,7 +169,7 @@ def guest_search():
     if brand:
         query = query.filter(Sneakers.gender.ilike(f"%{brand}%"))
 
-    sneakers = query.all()
+    sneakers = query.options(joinedload(Sneakers.images)).all()
 
     results = []
 
@@ -182,15 +178,13 @@ def guest_search():
         loop through the sneakers to extract individual properties
         '''
         results.append({
+            'id': sneaker.id,
             'name': sneaker.name,
             'price': sneaker.price,
-            'description': sneaker.description,
-            'gender': sneaker.gender,
-            'brand': sneaker.brand,
-            'filename': [image.filename for image in sneaker.images] if upload.images else None
+            'filename': sneaker.images[0].filename
             })
 
     if results:
-        return jsonify({'message': 'No collection available!'})
+        return jsonify(results)
     else:
-        return jsonify({'data': results})
+        return jsonify({'message': 'No collection available!'})
