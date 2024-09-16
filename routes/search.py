@@ -67,7 +67,7 @@ def admin_search():
             'filename': sneaker.images[0].filename
             })
     if results:
-        return jsonify({'data': results})
+        return jsonify(results)
     else:
         return jsonify({'message': 'No collection available!'})
 
@@ -127,7 +127,7 @@ def member_search():
             })
         
     if results:
-        return jsonify({'data': results})
+        return jsonify(results)
     else:
         return jsonify({'message': 'No collection available!'})
 
@@ -185,6 +185,6 @@ def guest_search():
             })
 
     if results:
-        return jsonify({'data': results})
+        return jsonify(results)
     else:
         return jsonify({'message': 'No collection available!'})
