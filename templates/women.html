@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang='en'>
+	<head>
+		<meta charset='utf-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+		<link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/collections.css') }}">
+		<link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/admin_nav.css') }}">
+		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+		<title>Home</title>
+	</head>
+	<body>
+		<nav>
+			<div id='logo'>
+				<img src='/static/images/logo.png' alt='company logo'>
+			</div>
+
+			<ul>
+				<li><a href="{{ url_for('dash.guest_dashboard') }}">Home</a></li>
+				<li><a href="{{ url_for('post.men') }}">Men</a></li>
+				<li><a href="{{ url_for('post.women') }}">Women</a></li>
+				<li><a href="{{ url_for('post.unisex') }}">Unisex</a></li>
+				<li><a href="{{ url_for('order.view_orders') }}">Orders</a></li>
+			</ul>
+
+			<div id='search'>
+				<a href="{{ url_for('find.member_search_template') }}" id='find'><i class='bx bx-search'></i></a>
+				<a href="{{ url_for('cart_bp.view_cart') }}" id='cart'><img src='/static/images/cart.png' alt='profile'>
+				<a href="{{ url_for('profile.guest_profile') }}" id='profile'><img src='/static/images/account.png' alt='profile'></a>
+			</div>
+		</nav>
+
+		<section>
+			<h1>Women's Sneaker collections</h1>
+
+			<div id='container'>
+
+				{% if sneakers %}
+					{% for sneaker in sneakers.items %}
+					<div class='item' data-sneakerId="{{ sneaker.id }}" >
+							<a href="{{ url_for('post.product_details', sneaker_id=sneaker.id) }}">
+								<div class='image'>
+									<img src="{{ url_for('post.send_image', filename=sneaker.images[0].filename) }}">
+								</div>
+							</a>
+
+							<div class='details'>
+								<h3>{{ sneaker.name | title }}</h3>
+								<h5>ksh. {{ sneaker.price }}</h5>
+							</div>
+					</div>
+					{% endfor %}
+
+				{% else %}
+					<p>No sneakers to display</p>
+				{% endif %}
+
+
+				<div class='controls'>
+
+					{% if sneakers.has_prev %}
+					<a href="{{ url_for('post.uploads', page=sneakers.prev_num) }}">
+						<button>
+							<img src='/static/images/previous.png' alt='previous'>
+						</button>
+					</a>
+					{% else %}
+	    					<button disabled>
+							<img src='/static/images/previous.png' alt='previous'>
+						</button>
+					{% endif %}
+
+					{% if sneakers.has_next %}
+					<a href="{{ url_for('post.uploads', page=sneakers.next_num) }}">
+						<button>
+							<img src='/static/images/next.png' alt='next'>
+						</button>
+					</a>
+					{% else %}
+					<button disabled>
+						<img src='/static/images/next.png' alt='next'>
+					</button>
+					{% endif %}
+				</div>
+			</div>
+
+		</section>
+	</body>
+</html>
