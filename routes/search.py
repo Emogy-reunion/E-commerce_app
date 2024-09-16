@@ -61,12 +61,10 @@ def admin_search():
         loop through the sneakers to extract individual properties
         '''
         results.append({
+            'id': sneaker.id,
             'name': sneaker.name,
             'price': sneaker.price,
-            'description': sneaker.description,
-            'gender': sneaker.gender,
-            'brand': sneaker.brand,
-            'filename': [image.filename for image in sneaker.images] if sneaker.images else None
+            'filename': sneaker.images[0].filename
             })
     if results:
         return jsonify({'data': results})
@@ -122,12 +120,10 @@ def member_search():
         loop through the sneakers to extract individual properties
         '''
         results.append({
+            'id': sneaker.id,
             'name': sneaker.name,
             'price': sneaker.price,
-            'description': sneaker.description,
-            'gender': sneaker.gender,
-            'brand': sneaker.brand,
-            'filename': [image.filename for image in sneaker.images] if sneaker.images else None
+            'filename': sneaker.images[0].filename
             })
         
     if results:
@@ -182,12 +178,10 @@ def guest_search():
         loop through the sneakers to extract individual properties
         '''
         results.append({
+            'id': sneaker.id,
             'name': sneaker.name,
             'price': sneaker.price,
-            'description': sneaker.description,
-            'gender': sneaker.gender,
-            'brand': sneaker.brand,
-            'filename': [image.filename for image in sneaker.images] if sneaker.images else None
+            'filename': sneaker.images[0].filename
             })
 
     if results:
