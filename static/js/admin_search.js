@@ -1,22 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-	document.getElementById('find').addEventListener('submit', (event) => {
+	document.getElementById('filter').addEventListener('submit', (event) => {
 
 		event.preventDefault();
 
-		const container = document.getElementById('container');
-                container.innerHTML = ''; // clear any existing items
-
 		const form = event.target;
-		const formData = new FormData(request.form);
+		const formData = new FormData(form);
 
 		// convert it to query parameters
-		const queryParams = new URLSearchParams(formData).toString();
+		let queryParams = new URLSearchParams(formData).toString();
 
-		const url = `/admin_search/?${queryParams}`;
+		const url = `/admin_search?${queryParams}`;
+
+		const headers = {
+			'X-CSRFToken': form.csrf_token.value
+		};
+
+		const container = document.getElementById('display');
+		container.innerHTML = ''; // clear any existing items
+
 		
 		// send a get request to retrieve data
-		fetch(url)
+		fetch(url, {
+			headers,
+			method: 'GET'
+		})
 		.then(response => {
 			if (!response.ok) {
 				throw new Error(response.statusText);
@@ -28,12 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
 			if (data.message) {
 				alert(data.message);
 			} else {
-				data.results.forEach(sneaker => {
-
-					const container = document.getElementById('container')
-					container.innerHTML = ''; // clear any existing items
-
+				data.forEach(sneaker => {
 					const item = document.createElement('div'); // element div
+					item.setAttribute('data-sneakerId', sneaker.id);
 
 					const link = document.createElement('a'); // link to property details
 					link.href = `/upload_details/${sneaker.id}`;
@@ -56,8 +61,27 @@ document.addEventListener('DOMContentLoaded', () => {
 					const price = document.createElement('h5');
 					price.textContent = sneaker.price;
 
+					const update = document.createElement('a'); // allows admin to update property
+					update.href =`/update_product/${sneaker.id}`;
+
+					const updateIcon = document.createElement('i'); // the update icon
+					updateIcon.classList.add('bx', 'bx-edit');
+					update.appendChild(updateIcon);
+
+					const remove = document.createElement('a'); // allows admin to delete property
+					remove.href = '#';
+					remove.setAttribute('data-sneakerId', sneaker.id);
+					remove.classList.add('delete');
+
+					const deleteIcon = document.createElement('i'); // the delete icon
+					deleteIcon.classList.add('bx', 'bxs-trash');
+
+					remove.appendChild(deleteIcon);
+
 					details.appendChild(name);
 					details.appendChild(price);
+					details.appendChild(update);
+					details.appendChild(remove);
 
 					item.appendChild(link);
 					item.appendChild(details);
@@ -71,7 +95,4 @@ document.addEventListener('DOMContentLoaded', () => {
 			console.error('Error: ', error.message);
 		});
 	});
-});
-
-
-
+});	
