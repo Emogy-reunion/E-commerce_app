@@ -6,7 +6,7 @@
 		<link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/admin_profile.css') }}">
 		<link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/admin_nav.css') }}">
 		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-		<title>Home</title>
+		<title>Profile</title>
 	</head>
 	<body>
 		<nav>
@@ -26,5 +26,26 @@
 				<a href="{{ url_for('profile.admin_profile') }}" id='profile'><img src='/static/images/account.png' alt='profile'></a>
 			</div>
 		</nav>
+
+		<section>
+			<div id='container'>
+				<div id='image'>
+					<img src='/static/images/account.png' alt='profile'>
+				</div>
+
+				<div id='details'>
+					<h3><span class='title'>Full name:</span> {{ admin.first_name }} {{ admin.last_name }}</h3>
+					<h3><span class='title'>Email address:</span> {{ admin.email }}</h3>
+					<h3><span class='title'>Phone number:</span> {{ admin.phone_number }}</h3>
+					<h3><span class='title'>Joined:</span> {{ admin.registered_on }}</h3>
+				</div>
+
+				<div id='action'>
+					<a href="{{ url_for('auth.logout') }}">Logout</a>
+					<a href='#'>Delete account</a>
+				</div>
+			</div>
+		</section>
+
 	</body>
 </html>
