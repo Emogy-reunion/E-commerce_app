@@ -1,7 +1,7 @@
 '''
 this routes render and return user profiles
 '''
-from flask import Blueprint
+from flask import Blueprint, render_template
 from utils.role import role_required
 from model import Users, db
 from flask_login import current_user, login_required
