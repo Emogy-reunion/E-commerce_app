@@ -66,7 +66,7 @@ def admin_search():
             'description': sneaker.description,
             'gender': sneaker.gender,
             'brand': sneaker.brand,
-            'filename': [image.filename for image in sneaker.images] if upload.images else None
+            'filename': [image.filename for image in sneaker.images] if sneaker.images else None
             })
 
     if results:
@@ -128,7 +128,7 @@ def member_search():
             'description': sneaker.description,
             'gender': sneaker.gender,
             'brand': sneaker.brand,
-            'filename': [image.filename for image in sneaker.images] if upload.images else None
+            'filename': [image.filename for image in sneaker.images] if sneaker.images else None
             })
 
     if results:
@@ -188,7 +188,7 @@ def guest_search():
             'description': sneaker.description,
             'gender': sneaker.gender,
             'brand': sneaker.brand,
-            'filename': [image.filename for image in sneaker.images] if upload.images else None
+            'filename': [image.filename for image in sneaker.images] if sneaker.images else None
             })
 
     if results:
