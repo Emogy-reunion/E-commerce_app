@@ -22,8 +22,8 @@ def admin_search_template():
     return render_template('admin_search.html', form=form)
 
 @find.route('/admin_search', methods=['GET'])
-@login_required
-@role_required('admin')
+#@login_required
+#@role_required('admin')
 def admin_search():
     '''
     this route handles admin search and filtering
@@ -70,9 +70,9 @@ def admin_search():
             })
 
     if results:
-        return jsonify({'message': 'No collection available!'})
-    else:
         return jsonify({'data': results})
+    else:
+        return jsonify({'message': 'No collection available!'})
 
 @find.route('/member_search_template')
 @login_required
@@ -131,10 +131,10 @@ def member_search():
             'filename': [image.filename for image in sneaker.images] if sneaker.images else None
             })
 
-    if results:
-        return jsonify({'message': 'No collection available!'})
-    else:
+     if results:
         return jsonify({'data': results})
+    else:
+        return jsonify({'message': 'No collection available!'})
 
 @find.route('/guest_search_template')
 def guest_search_template():
@@ -191,7 +191,7 @@ def guest_search():
             'filename': [image.filename for image in sneaker.images] if sneaker.images else None
             })
 
-    if results:
-        return jsonify({'message': 'No collection available!'})
-    else:
+     if results:
         return jsonify({'data': results})
+    else:
+        return jsonify({'message': 'No collection available!'})
