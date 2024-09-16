@@ -17,7 +17,7 @@ body {
 }
 
 #container {
-	width: 350px;
+	width: 400px;
 	padding: 10px 30px;
 	display: flex;
 	flex-direction: column;
@@ -29,7 +29,9 @@ body {
 
 #container p {
 	width: 90%;
+	padding-bottom: 5px;
 	box-sizing: border-box;
+}
 
 .alert {
 	border: 1px solid transparent;
