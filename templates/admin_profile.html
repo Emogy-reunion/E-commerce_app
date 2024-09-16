@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang='en'>
+	<head>
+		<meta charset='utf-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+		<link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/admin_profile.css') }}">
+		<link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/admin_nav.css') }}">
+		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+		<title>Home</title>
+	</head>
+	<body>
+		<nav>
+			<div id='logo'>
+				<img src='/static/images/logo.png' alt='company logo'>
+			</div>
+
+			<ul>
+				<li><a href="{{ url_for('dash.admin_dashboard') }}">Home</a></li>
+				<li><a href="{{ url_for('post.upload') }}">Post</a></li>
+				<li><a href="{{ url_for('post.uploads') }}">Posts</a></li>
+				<li><a href="{{ url_for('order.admin_orders_view') }}">Orders</a></li>
+			</ul>
+
+			<div id='search'>
+				<a href="{{ url_for('find.admin_search_template') }}" id='find'><i class='bx bx-search'></i></a>
+				<a href="{{ url_for('profile.admin_profile') }}" id='profile'><img src='/static/images/account.png' alt='profile'></a>
+			</div>
+		</nav>
+	</body>
+</html>
