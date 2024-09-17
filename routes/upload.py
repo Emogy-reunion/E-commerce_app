@@ -166,7 +166,7 @@ def product_details(product_id):
     '''
     form = SizeForm()
 
-    sneaker = Sneakers.query.options(joinedload(Sneakers.images)).filter(Sneakers.id == sneaker_id).first()
+    sneaker = Sneakers.query.options(joinedload(Sneakers.images)).filter(Sneakers.id == product_id).first()
     return render_template('product_details.html', sneaker=sneaker, form=form)
 
 @post.route('/collections')
@@ -189,5 +189,5 @@ def guest_product_details(product_id):
     '''
     form = SizeForm()
 
-    sneaker = Sneakers.query.options(joinedload(Sneakers.images)).filter(Sneakers.id == sneaker_id).first()
+    sneaker = Sneakers.query.options(joinedload(Sneakers.images)).filter(Sneakers.id == product_id).first()
     return render_template('guest_product_details.html', sneaker=sneaker, form=form)
