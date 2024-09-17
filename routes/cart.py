@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, flash, url_for, render_template, redirect
 from flask_login import login_required, current_user
 from model import Sneakers, db, Images, Cart, CartItems
 from form import QuantityForm, SizeForm
+from sqlalchemy.orm import joinedload
 
 
 cart_bp = Blueprint('cart_bp', __name__)
