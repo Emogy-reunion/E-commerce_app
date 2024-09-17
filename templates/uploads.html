@@ -38,7 +38,11 @@
 					<div class='item' data-sneakerId="{{ sneaker.id }}" >
 							<a href="{{ url_for('post.upload_details', sneaker_id=sneaker.id) }}">
 								<div class='image'>
+									{% if sneaker.images %}
 									<img src="{{ url_for('post.send_image', filename=sneaker.images[0].filename) }}">
+									{% else %}
+									<img src="{{ url_for('post.send_image', filename='default.jpeg') }}" alt='default'>
+									{% endif %}
 								</div>
 							</a>
 							
