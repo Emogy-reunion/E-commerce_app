@@ -67,7 +67,7 @@ def add_to_cart(sneaker_id):
         '''
         try:
             new_item = CartItems(
-                    card_id=cart.id,
+                    cart_id=cart.id,
                     sneaker_id=sneaker_id,
                     size=size,
                     quantity=1,
