@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, flash, url_for, render_template, redirect
+from flask import Blueprint, jsonify, flash, url_for, render_template, redirect, request
 from flask_login import login_required, current_user
 from model import Sneakers, db, Images, Cart, CartItems
 from form import QuantityForm, SizeForm
