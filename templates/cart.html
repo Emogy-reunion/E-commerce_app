@@ -3,10 +3,10 @@
 	<head>
 		<meta charset='utf-8'>
 		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-		<link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/guest.css') }}">
+		<link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/cart.css') }}">
 		<link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/admin_nav.css') }}">
 		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-		<title>Home</title>
+		<title>Cart</title>
 	</head>
 	<body>
 		<nav>
@@ -28,5 +28,44 @@
 				<a href="{{ url_for('profile.guest_profile') }}" id='profile'><img src='/static/images/account.png' alt='profile'></a>
 			</div>
 		</nav>
+
+		<section>
+			<div class='container'>
+				{% for product in cart.items %}
+					<div class='item'>
+						<div class='image'>
+							<img src="{{ url_for('post.send_image', filename=product.item.images[0].filename) }}" alt="product">
+						</div>
+
+						<div class='size'>
+							<h3>{{ product.item.name }}</h3>
+							<p>{{ product.size }} <span class='price'>ksh. {{ product.subtotal }}</span></p>
+						</div>
+
+						<div class="quantity-field">
+							<button type="button" id="decrement">-</button>
+							{{ form.quantity(class="quantity-input", value=1) }}
+							<button type="button" id="increment">+</button>
+						</div>
+
+						<div class='delete'>
+							<a href="#" class="delete" data-sneakerId="{{ product.sneaker_id }}"><i class='bx bxs-trash'></i></a>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+
+			<div class='total'>
+				<div class='pricing'>
+					<h3>Total price:<span>{{ total_price }}</span></h3>
+
+					<div class='button'>
+						{{ form.submit(class='submit') }}
+					</div>
+	
+				</div>
+			</div>
+		</section>
+
 	</body>
 </html>
