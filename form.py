@@ -112,12 +112,14 @@ class QuantityForm(FlaskForm):
     form to allow users to increment or decrement the quantity of items
     '''
     quantity = IntegerField('Quantity', validators=[DataRequired(), NumberRange(min=1, message="Price must be greater than or equal to 1")])
+    submit = SubmitField('Checkout')
 
 class SizeForm(FlaskForm):
     '''
     form to allow users to select the size
     '''
     size = SelectField('Select Size', choices=[(str(i), str(i)) for i in range(36, 46)])
+    submit = SubmitField('Add To Cart')
 
 class CheckoutForm(FlaskForm):
     '''
