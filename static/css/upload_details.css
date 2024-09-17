@@ -94,8 +94,7 @@ section {
 
 #details {
 	width: 60%;
-	padding: 50px;
-	margin-top: 50px;
+	padding: 0 50px;
 	overflow-y: auto;
 	margin-left: 60%;
 	display: flex;
@@ -105,4 +104,16 @@ section {
 
 #details h2 {
 	 color: #f85b10;
+ }
+
+ #details h3 a {
+	 color: #0598ce;
+ }
+
+ #details h3 a:hover {
+	 color: #f85b10;
+ }
+
+ #details ul {
+	 margin: 10px 0;
  }
