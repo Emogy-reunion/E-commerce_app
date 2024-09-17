@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang='en'>
+	<head>
+		<meta charset='utf-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+		<link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/admin_search.css') }}">
+		<link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/admin_nav.css') }}">
+		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+		<title>Home</title>
+	</head>
+	<body>
+		<nav>
+			<div id='logo'>
+				<img src='/static/images/logo.png' alt='company logo'>
+			</div>
+
+			<ul>
+				<li><a href="{{ url_for('dash.guest_dashboard') }}">Home</a></li>
+				<li><a href="{{ url_for('post.men') }}">Men</a></li>
+				<li><a href="{{ url_for('post.women') }}">Women</a></li>
+				<li><a href="{{ url_for('post.unisex') }}">Unisex</a></li>
+				<li><a href="{{ url_for('order.view_orders') }}">Orders</a></li>
+			</ul>
+
+			<div id='search'>
+				<a href="{{ url_for('find.member_search_template') }}" id='find'><i class='bx bx-search'></i></a>
+				<a href="{{ url_for('cart_bp.view_cart') }}" id='cart'><img src='/static/images/cart.png' alt='profile'>
+				<a href="{{ url_for('profile.guest_profile') }}" id='profile'><img src='/static/images/account.png' alt='profile'></a>
+			</div>
+		</nav>
+
+		<section>
+			<div id='container'>
+
+				<div id='crown'>
+					<img src='/static/images/logo.png' alt='company logo'>
+				</div>
+
+				<h1>Search</h1>
+
+				<form id='filter'>
+
+					{{ form.hidden_tag() }}
+
+					<div>
+						{{ form.name.label }}<br>
+						{{ form.name(size=49) }}
+						<p class='error' id='name-error'></p>
+					</div>
+
+					<div>
+						{{ form.min_price.label }}<br>
+						{{ form.min_price() }}
+						<p class='error' id='min_price-error'></p>
+					</div>
+
+					<div>
+                                                {{ form.max_price.label }}<br>
+                                                {{ form.max_price() }}
+                                                <p class='error' id='max_price-error'></p>
+                                        </div>
+
+					<div>
+                                                {{ form.brand.label }}<br>
+                                                {{ form.brand(size=49) }}
+                                                <p class='error' id='brand-error'></p>
+                                        </div>
+
+					<div>
+						{{ form.gender.label() }} {{ form.gender() }}
+					</div>
+
+					<div id='button'>
+						{{ form.submit() }}
+					</div>
+				</form>
+			</div>
+
+			<div id='display'></div>
+		</section>
+		<script src='/static/js/member_search.js'></script>
+	</body>
+</html>
