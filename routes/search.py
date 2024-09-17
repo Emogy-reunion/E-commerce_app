@@ -64,7 +64,7 @@ def admin_search():
             'id': sneaker.id,
             'name': sneaker.name,
             'price': sneaker.price,
-            'filename': sneaker.images[0].filename
+            'filename': sneaker.images[0].filename if sneaker.images else 'default.jpeg'
             })
     if results:
         return jsonify(results)
@@ -123,7 +123,7 @@ def member_search():
             'id': sneaker.id,
             'name': sneaker.name,
             'price': sneaker.price,
-            'filename': sneaker.images[0].filename
+            'filename': sneaker.images[0].filename if sneaker.images else 'default.jpeg'
             })
         
     if results:
@@ -181,7 +181,7 @@ def guest_search():
             'id': sneaker.id,
             'name': sneaker.name,
             'price': sneaker.price,
-            'filename': sneaker.images[0].filename
+            'filename': sneaker.images[0].filename if sneaker.images else 'default.jpeg'
             })
 
     if results:
