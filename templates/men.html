@@ -51,14 +51,14 @@
 					{% endfor %}
 
 				{% else %}
-					<p>No sneakers to display</p>
+					<p class='not-available'>No sneakers to display</p>
 				{% endif %}
 
 
 				<div class='controls'>
 
 					{% if sneakers.has_prev %}
-						<a href="{{ url_for('post.uploads', page=sneakers.prev_num) }}">
+						<a href="{{ url_for('post.men', page=sneakers.prev_num) }}">
 							<button>
 								<img src='/static/images/previous.png' alt='previous'>
 							</button>
@@ -70,7 +70,7 @@
 					{% endif %}
 
 					{% if sneakers.has_next %}
-						<a href="{{ url_for('post.uploads', page=sneakers.next_num) }}">
+						<a href="{{ url_for('post.men', page=sneakers.next_num) }}">
 							<button>
 								<img src='/static/images/next.png' alt='next'>
 							</button>
