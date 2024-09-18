@@ -140,3 +140,8 @@ input[type='submit'] {
 	border-radius: 10px;
 	border: none;
 }
+
+input[type='submit']:hover {
+	color: #f85b10;
+        background-color: #fff;
+}
