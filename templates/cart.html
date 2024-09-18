@@ -31,6 +31,9 @@
 
 		<section>
 			<div class='container'>
+				{% if not cart or not cart.items %}
+				<h2 style="padding: 110px;">No items</h2>
+				{% else %}
 				{% for product in cart.items %}
 					<div class='item' data-sneakerId="{{ product.sneaker_id }}">
 						<div class='image'>
@@ -58,8 +61,10 @@
 						</div>
 					</div>
 				{% endfor %}
+				{% endif %}
 			</div>
 
+			{% if cart and cart.items %}
 			<div class='total'>
 				<div class='pricing'>
 					<h3>Total price:<span>ksh {{ total_price }}</span></h3>
@@ -70,6 +75,7 @@
 	
 				</div>
 			</div>
+			{% endif %}
 		</section>
 		<script src='/static/js/cart.js'></script>
 		<script src='/static/js/checkout.js'></script>

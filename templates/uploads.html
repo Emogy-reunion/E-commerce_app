@@ -33,7 +33,7 @@
 
 			<div id='container'>
 
-				{% if sneakers %}
+				{% if sneakers.items %}
 					{% for sneaker in sneakers.items %}
 					<div class='item' data-sneakerId="{{ sneaker.id }}" >
 							<a href="{{ url_for('post.upload_details', sneaker_id=sneaker.id) }}">
@@ -57,7 +57,7 @@
 					{% endfor %}
 
 				{% else %}
-					<p>No sneakers to display</p>
+					<h2 class='non-available'>No sneakers to display</h2>
 				{% endif %}
 
 				
