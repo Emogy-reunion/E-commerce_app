@@ -20,8 +20,11 @@ def place_order():
     If the request id POST it places the order and initiates payment process
     '''
 
-    total_amount = request.args.get('total_amount', type=float)
+    subtotal = request.args.get('total_amount', type=float)
+    shipping_fee = float(150)
+    total = subtotal + shipping_fee
     user_id = current_user.id
+
     form = CheckoutForm()
 
     cart = Cart.query.options(
@@ -36,7 +39,7 @@ def place_order():
         return jsonify({'error': 'The cart is empty!'})
 
     if request.method == 'GET':
-        return render_template('checkout.html', cart=cart, total_amount=total_amount, form=form)
+        return render_template('checkout.html', cart=cart, subtotal=subtotal, total=total, form=form)
     else:
 
         form = CheckoutForm(request.form)
@@ -52,7 +55,7 @@ def place_order():
                 # create the order
                 order = Order(
                         user_id=user_id,
-                        total_amount=total_amount,
+                        total_amount=total,
                         status='not_paid',
                         shipping_address=shipping_address,
                         phone_number=phone_number
