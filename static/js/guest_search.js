@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					item.setAttribute('data-sneakerId', sneaker.id);
 
 					const link = document.createElement('a'); // link to property details
-					link.href = `/upload_details/${sneaker.id}`;
+					link.href = `/guest_product_details/${sneaker.id}`;
 
 					const imageDiv = document.createElement('div'); // contains sneaker image
 					const image = document.createElement('img');

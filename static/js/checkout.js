@@ -10,19 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const params = new URLSearchParams();
 		params.append('total_amount', amount);
 
-		fetch(`/place_order?${params.toString()}`, {
-			method: 'GET'
-		})
-		.then(response => {
-			if (!response.ok) {
-				throw new Error(response.statusText);
-			} else {
-				return response.json();
-			}
-		})
-		.catch(error => {
-			console.error('Error: ', error.message);
-		});
+		window.location.href = `/place_order?${params.toString()}`;
 
 	});
 });

@@ -16,7 +16,7 @@
 
 ### Prerequisites
 
-Before setting up the project, ensure you have the following installed on your machine:
+* Before setting up the project, ensure you have the following installed on your machine:
 
 - [Python 3.12+](https://www.python.org/downloads/)
 - [pip](https://pip.pypa.io/en/stable/)
@@ -25,41 +25,47 @@ Before setting up the project, ensure you have the following installed on your m
 
 1. **Clone the repository:**
 
-   ```bash
-   https://github.com/Emogy-reunion/E-commerce_app.git
-   cd E-commerce_app
+   ```sh
+    https://github.com/Emogy-reunion/E-commerce_app.git
+    cd E-commerce_app
+    ```
+
 
 ### **Create and Activate Virtual Environment**
 ** Create a virtual environment: **
-    ```bash
+    ```sh
     python -m venv myenv
+    ```
+
 ** Activate virtual environment **
-    ```bash
+    ```sh
     source myenv/bin/activate
+    ```
 
 ### Install the required dependencies:
-    ```bash
+    ```sh
     pip freeze > requirements.txt
+    ```
 
 ### Create the database:
 * Make sure to configure your database settings in config.py.
 
 ### Run the Application
-```bash
+    ```bash
     flask run
+    ```
 
 * The application will be available at http://127.0.0.1:5000/.
 
 ### Configuration
 
-The application settings and configurations are stored in config.py. You can modify the database URI, secret keys, and other settings as needed.
+* The application settings and configurations are stored in config.py. You can modify the database URI, secret keys, and other settings as needed.
 
 ### Usage
-
-    Access the Application: Open your web browser and go to http://127.0.0.1:5000/.
-    User Registration: Register a new account to start using the application.
-    Browse Sneakers: Explore the sneaker catalog and add items to your cart.
-    Checkout: Proceed to checkout and complete your purchase.
+* Access the Application: Open your web browser and go to http://127.0.0.1:5000/.
+* User Registration: Register a new account to start using the application.
+* Browse Sneakers: Explore the sneaker catalog and add items to your cart.
+* Checkout: Proceed to checkout and complete your purchase.
 
 ## Contributing
 
