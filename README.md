@@ -37,7 +37,7 @@
     python -m venv myenv
     ```
 
-2. **Activate virtual environment **
+2. **Activate virtual environment**
     ```sh
     source myenv/bin/activate
     ```
