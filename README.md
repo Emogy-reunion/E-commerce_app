@@ -6,7 +6,7 @@
 
 ## Features
 
-- **User Authentication**: Register, log in, and manage user accounts.
+- **User Authentication and email verification**: Register, log in, and manage user accounts.
 - **Product Catalog**: Browse sneakers by gender, brand, and other categories.
 - **Shopping Cart**: Add items to the cart, update quantities, and view the cart summary.
 - **Order Processing**: Place orders and manage checkout.
