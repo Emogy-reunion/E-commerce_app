@@ -1,4 +1,4 @@
-# East Monarch - eCommerce Website
+# East Monarch - e-Commerce Website
 
 ## Introduction
 
