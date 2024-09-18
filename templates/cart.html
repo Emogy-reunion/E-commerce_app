@@ -34,12 +34,16 @@
 				{% for product in cart.items %}
 					<div class='item' data-sneakerId="{{ product.sneaker_id }}">
 						<div class='image'>
+							{% if product.item.images %}
 							<img src="{{ url_for('post.send_image', filename=product.item.images[0].filename) }}" alt="product">
+							{% else %}
+							<img src="{{ url_for('post.send_image', filename='default.jpeg') }}" alt="product">
+							{% endif %}
 						</div>
 
 						<div class='size'>
 							<h3>{{ product.item.name }}</h3>
-							<p>{{ product.size }} <span class='price'>ksh. {{ product.subtotal }}</span></p>
+							<p>{{ product.size }} <span class='price'>ksh {{ product.subtotal }}</span></p>
 						</div>
 
 						<div class="quantity-field">
@@ -50,7 +54,7 @@
 						</div>
 
 						<div class='delete'>
-							<a href="#" class="delete" data-sneakerId="{{ product.sneaker_id }}"><i class='bx bxs-trash'></i></a>
+							<a href="#" class="remove" data-sneakerId="{{ product.sneaker_id }}"><i class='bx bxs-trash'></i></a>
 						</div>
 					</div>
 				{% endfor %}

@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				// Update the total price
 				const formattedPrice = data.total_price.toFixed(2);
 				const totalPriceElement = document.querySelector('.total .pricing h3 span');
-				totalPriceElement.textContent = `ksh. ${formattedPrice}`;
+				totalPriceElement.textContent = `ksh ${formattedPrice}`;
 			} 
 		})
 		.catch(error => {
@@ -57,14 +57,19 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
         }
 
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
 	// attach event listeners to all delete buttons
-	document.querySelectorAll('.delete').forEach(element => {
+	document.querySelectorAll('.remove').forEach(element => {
 		element.addEventListener('click', (event) => {
+
 			event.preventDefault();
 
 			const confirmation = confirm('Are you sure you want to remove this item from cart?');
 
-			if (confimation) {
+			if (confirmation) {
 				const sneakerId = element.getAttribute('data-sneakerId');
 
 				fetch(`/remove_from_cart/${sneakerId}`, {
@@ -87,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 						const formattedPrice = data.total_price.toFixed(2);
 						const totalPriceElement = document.querySelector('.total .pricing h3 span');
-						totalPriceElement.textContent = `ksh. ${formattedPrice}`;
+						totalPriceElement.textContent = `ksh ${formattedPrice}`;
 					}
 				})
 				.catch(error => {
@@ -96,6 +101,4 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		});
 	});
-
-
 });
