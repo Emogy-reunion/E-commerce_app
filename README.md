@@ -40,7 +40,7 @@
 2. **Activate virtual environment**
     ```sh
     source myenv/bin/activate
-    ```
+```
 
 ### Install the required dependencies:
     ```sh
