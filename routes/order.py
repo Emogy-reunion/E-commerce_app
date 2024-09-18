@@ -2,9 +2,9 @@
 This model contains routes that work on the order
 routes to place order, render the templates
 '''
-from flask import Blueprint, render_template, jsonify
+from flask import Blueprint, render_template, jsonify, request
 from utils.role import role_required
-from model import db, Users, Sneakers, Cart, CartItems, Orders, OrderItems
+from model import db, Users, Sneakers, Cart, CartItems, Orders, OrderItems, Images
 from form import CheckoutForm
 from flask_login import login_required, current_user
 from sqlalchemy.orm import joinedload
