@@ -28,5 +28,32 @@
 				<a href="{{ url_for('profile.guest_profile') }}" id='profile'><img src='/static/images/account.png' alt='profile'></a>
 			</div>
 		</nav>
+		<section>
+			<div id='container'>
+				<form id='address'>
+					{{ form.hidden_tag() }}
+					<div>
+						{{ form.shipping_address.label }}<br>
+						{{ form.shipping_address(size=32) }}
+						<p class='error' id='shipping_address-error'></p>
+					</div>
+					<div>
+						{{ form.phone_number.label }}<br>
+						{{ form.phone_number(size=15) }}
+						<p class='error' id='phone_number-error'></p>
+					</div>
+
+					<div>
+						<h3>Subtotal: <span>ksh {{ total_amount }}</span></h3>
+						<h4>Shipping fee: <span>ksh 150</span></h4>
+						<h4>TOTAL: <span>{{ total }}</span></h4>
+					</div>
+
+					<div id='button'>
+						{{ form.submit() }}
+					</div>
+			</div>
+		</section>
+
 	</body>
 </html>
