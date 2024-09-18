@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
 
 	const quantityFields = document.querySelectorAll('.quantity-input');
 
@@ -38,20 +38,64 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 		})
 		.then(data => {
-			if (data.success) {
+			if (data.error) {
+				alert(data.error);
+			} else {
 				// Update the subtotal for the item
 				const subtotalElement = itemElement.querySelector('.price');
-				subtotalElement.textContent = `ksh. ${data.new_subtotal}`;
+				subtotalElement.textContent = `ksh. ${data.subtotal}`;
 
 				// Update the total price
+				const formattedPrice = data.total_price.toFixed(2);
 				const totalPriceElement = document.querySelector('.total .pricing h3 span');
-				totalPriceElement.textContent = `ksh. ${data.total_price}`;
-			} else {
-				alert('Error updating cart. Please try again.');
-			}
+				totalPriceElement.textContent = `ksh. ${formattedPrice}`;
+			} 
 		})
 		.catch(error => {
 			console.error('Error:', error);
+			alert('An error occurred while updating the cart');
 		});
         }
+
+	// attach event listeners to all delete buttons
+	document.querySelectorAll('.delete').forEach(element => {
+		element.addEventListener('click', (event) => {
+			event.preventDefault();
+
+			const confirmation = confirm('Are you sure you want to remove this item from cart?');
+
+			if (confimation) {
+				const sneakerId = element.getAttribute('data-sneakerId');
+
+				fetch(`/remove_from_cart/${sneakerId}`, {
+					method: 'DELETE'
+				})
+				.then(response => {
+					if (!response.ok) {
+						throw new Error(response.statusText);
+					} else {
+						return response.json();
+					}
+				})
+				.then(data => {
+					if (data.error) {
+						alert(data.error);
+					} else {
+
+						const item = event.target.closest('.item');
+						item.remove();
+
+						const formattedPrice = data.total_price.toFixed(2);
+						const totalPriceElement = document.querySelector('.total .pricing h3 span');
+						totalPriceElement.textContent = `ksh. ${formattedPrice}`;
+					}
+				})
+				.catch(error => {
+					console.error('Error: ', error.message);
+				});
+			}
+		});
+	});
+
+
 });
