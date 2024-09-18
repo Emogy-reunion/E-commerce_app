@@ -1,33 +1,33 @@
 '''
 This model contains routes that work on the order
+routes to place order, render the templates
 '''
-from flask import Blueprint, render_template, jsonify
+from flask import Blueprint, render_template, jsonify, request
 from utils.role import role_required
-from model import db, Users, Sneakers, Cart, CartItems, Orders, OrderItems
+from model import db, Users, Sneakers, Cart, CartItems, Orders, OrderItems, Images
 from form import CheckoutForm
 from flask_login import login_required, current_user
+from sqlalchemy.orm import joinedload
 
 
 order = Blueprint('order', __name__)
 
 @order.route('/place_order', methods=['GET', 'POST'])
 @login_required
-def place_holder():
+def place_order():
     '''
     if the request is GET, it renders the checkout page
     If the request id POST it places the order and initiates payment process
     '''
 
-    total_amount = response.json.get('total_amount')
+    total_amount = request.args.get('total_amount', type=float)
     user_id = current_user.id
     form = CheckoutForm()
 
     cart = Cart.query.options(
-            joinedload(Cart.items).
-            joinedload(Cart.cart_user).
-            joinedload(CartItems.item).
-            joinedload(Sneaker.images)
-            ).filter_by(user_id=user_id).first()
+    joinedload(Cart.items).joinedload(CartItems.item).joinedload(Sneakers.images),
+    joinedload(Cart.user)
+    ).filter_by(user_id=user_id).first()
 
     if not cart or not cart.items:
         '''

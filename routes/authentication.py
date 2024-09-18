@@ -90,8 +90,5 @@ def logout():
     """
     Logs out the current user and redirects them to the home page.
     """
-    try:
-        logout_user()  # Logs out the user
-        return jsonify({'success': 'Successfully logged out'})
-    except Exception as e:
-        return jsonify({'error': 'An unexpected error occured!'})
+    logout_user()  # Logs out the user
+    return redirect(url_for('dash.index'))

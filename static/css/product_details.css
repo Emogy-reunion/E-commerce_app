@@ -20,6 +20,7 @@ body h1 {
 	text-align: center;
 	font-size: 3em;
 	color: #f85b10;
+	margin-top: 20px;
 }
 
 section {
@@ -29,7 +30,6 @@ section {
 
 #slider {
 	width: 60%;
-	margin-top: 50px;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -96,6 +96,7 @@ section {
 	width: 60%;
 	padding: 0 50px;
 	overflow-y: auto;
+	overflow-x: hidden;
 	margin-left: 60%;
 	display: flex;
 	flex-direction: column;
@@ -106,14 +107,38 @@ section {
 	 color: #f85b10;
  }
 
- #details h3 a {
-	 color: #0598ce;
+ form {
+	 width: 100%;
+	 box-sizing: border-box;
+	 margin: 15px;
  }
 
- #details h3 a:hover {
+ form div {
+	 margin: 15px 0;
+ }
+
+ form label {
+	 font-size: 28px;
+	 margin-bottom: 6px;
 	 color: #f85b10;
  }
 
- #details ul {
-	 margin: 10px 0;
+ select {
+	 padding: 5px;
+	 width: 50%;
+ }
+
+ input[type='submit'] {
+	 width: 60%;
+	 padding: 10px 0;
+	 background-color: #f85b10;
+	 color: white;
+	 font-weight: bold;
+	 border: none;
+	 border-radius: 10px;
+ }
+
+ input[type='submit']:hover {
+	 color: #f85b10;
+	 background-color: white;
  }

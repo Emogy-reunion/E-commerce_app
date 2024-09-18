@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang='en'>
+	<head>
+		<meta charset='utf-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+		<link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/upload_details.css') }}">
+		<link href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
+		<title>Details</title>
+	</head>
+
+	<body>
+		<h1>{{ sneaker.name | title }}</h1>
+		<section>
+			<div id='slider'>
+				<div class="slider-container">
+					<div class="slides">
+						{% for image in sneaker.images %}
+							<div class="slide">
+								<img src="{{ url_for('post.send_image', filename=image.filename) }}" alt="{{ image.filename }}">
+							</div>
+						{% endfor %}
+					</div>
+
+					<div class="navigation">
+						<button class="nav-button" id="prev"><i class='bx bx-left-arrow-alt'></i></button>
+						<button class="nav-button" id="next"><i class='bx bx-right-arrow-alt'></i></button>
+					</div>
+				</div>
+			</div>
+
+			<div id='details'>
+				<h3><a href="{{ url_for('auth.login') }}">Login to:</a></h3>
+				<ul>
+					<li>Place orders easily</li>
+					<li>Access cart features</li>
+					<li>Access a well curated sneaker collection</li>
+					<li>Track orders easily</li>
+				</ul>
+
+				<h2>Price</h2>
+				<h5>{{ sneaker.price }}</h5>
+				
+				<h2>Brand</h2>
+				<h5>{{ sneaker.brand | title }}</h5>
+
+				<h2>Gender</h2>
+				<h5>{{ sneaker.gender | title }}</h5>
+
+				<h2>Description</h2>
+				<p>{{ sneaker.description | capitalize }}</p>
+			</div>
+		</section>
+		<script src="{{ url_for('static', filename='js/slider.js') }}"></script>
+	</body>
+</html>
