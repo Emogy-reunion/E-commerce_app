@@ -51,7 +51,7 @@
 * Make sure to configure your database settings in config.py.
 
 ### Run the Application
-    ```bash
+    ```sh
     flask run
     ```
 
