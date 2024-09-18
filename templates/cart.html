@@ -32,7 +32,7 @@
 		<section>
 			<div class='container'>
 				{% for product in cart.items %}
-					<div class='item'>
+					<div class='item' data-sneakerId="{{ product.sneaker_id }}">
 						<div class='image'>
 							<img src="{{ url_for('post.send_image', filename=product.item.images[0].filename) }}" alt="product">
 						</div>
@@ -43,6 +43,7 @@
 						</div>
 
 						<div class="quantity-field">
+							{{ form.hidden_tag() }}
 							<button type="button" id="decrement">-</button>
 							{{ form.quantity(class="quantity-input", value=1) }}
 							<button type="button" id="increment">+</button>
@@ -66,6 +67,7 @@
 				</div>
 			</div>
 		</section>
+		<script src='/static/js/cart.js'></script>
 
 	</body>
 </html>
