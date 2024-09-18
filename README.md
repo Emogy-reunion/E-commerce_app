@@ -37,7 +37,7 @@
     python -m venv myenv
     ```
 
-2. **Activate virtual environment **
+2. **Activate virtual environment**
     ```sh
     source myenv/bin/activate
     ```
@@ -51,7 +51,7 @@
 * Make sure to configure your database settings in config.py.
 
 ### Run the Application
-    ```bash
+    ```sh
     flask run
     ```
 
