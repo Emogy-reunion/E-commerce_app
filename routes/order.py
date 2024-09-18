@@ -25,7 +25,7 @@ def place_order():
     form = CheckoutForm()
 
     cart = Cart.query.options(
-    joinedload(Cart.items).joinedload(CartItems.sneaker).joinedload(Sneakers.images),
+    joinedload(Cart.items).joinedload(CartItems.item).joinedload(Sneakers.images),
     joinedload(Cart.user)
     ).filter_by(user_id=user_id).first()
 
