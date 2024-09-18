@@ -26,7 +26,7 @@ def place_order():
 
     cart = Cart.query.options(
             joinedload(Cart.items).
-            joinedload(Cart.cart_user).
+            joinedload(Cart.user).
             joinedload(CartItems.item).
             joinedload(Sneaker.images)
             ).filter_by(user_id=user_id).first()
