@@ -32,12 +32,12 @@
 
 
 ### **Create and Activate Virtual Environment**
-** Create a virtual environment: **
+1. **Create a virtual environment:**
     ```sh
     python -m venv myenv
     ```
 
-** Activate virtual environment **
+2. **Activate virtual environment **
     ```sh
     source myenv/bin/activate
     ```
