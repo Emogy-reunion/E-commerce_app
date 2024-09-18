@@ -1,5 +1,6 @@
 '''
 This model contains routes that work on the order
+routes to place order, render the templates
 '''
 from flask import Blueprint, render_template, jsonify
 from utils.role import role_required
