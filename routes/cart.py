@@ -169,7 +169,7 @@ def remove_from_cart(sneaker_id):
         db.session.rollback()
         return jsonify({'error': 'Item not removed!'})
 
-    cart = Cart.query.options(joinedload(Cart.items).joinedload(CartItem.item)).filter_by(user_id=user_id).first()
+    cart = Cart.query.options(joinedload(Cart.items).joinedload(CartItems.item)).filter_by(user_id=user_id).first()
 
     # If the cart is empty, return a total price of 0
     if not cart or not cart.items:
