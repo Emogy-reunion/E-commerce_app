@@ -131,13 +131,14 @@ def update_cart(sneaker_id):
         try:
             cart_item.quantity = quantity
             cart_item.subtotal = cart_item.item.price * cart_item.quantity
-            db.session.commit()
         except Exception as e:
             db.session.rollback()
             return jsonify({'error': 'Quantity not updated!'})
 
+        db.session.commit()
+
         # query the cart together with its items and the relevant sneaker
-        cart = Cart.query.options(joinedload(Cart.items).joinedload(CartItem.item)).filter_by(user_id=user_id).first()
+        cart = Cart.query.options(joinedload(Cart.items).joinedload(CartItems.item)).filter_by(user_id=user_id).first()
 
         # calculate the total price of items in the cart
         total_price = sum(sneaker.subtotal for sneaker in cart.items)
