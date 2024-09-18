@@ -91,9 +91,9 @@ button:hover {
 	background-color: green;
 }
 
-.not-available {
+.non-available {
 	font-size: 3em;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 300px;
+	margin-top: 150px;
 }
