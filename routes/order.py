@@ -20,7 +20,7 @@ def place_order():
     If the request id POST it places the order and initiates payment process
     '''
 
-    total_amount = float(response.json.get('total_amount'))
+    total_amount = request.args.get('total_amount', type=float)
     user_id = current_user.id
     form = CheckoutForm()
 
