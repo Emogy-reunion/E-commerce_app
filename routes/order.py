@@ -53,7 +53,7 @@ def place_order():
 
             try:
                 # create the order
-                order = Order(
+                order = Orders(
                         user_id=user_id,
                         total_amount=total_value,
                         status='not_paid',
@@ -75,12 +75,14 @@ def place_order():
                             sneaker_id=item.sneaker_id
                             )
                     db.session.add()
-                db.session.commit()
             except Exception as e:
                 db.session.rollback()
                 return jsonify({'error': 'An unexpected error occured!'})
         else:
             return jsonify({'errors': form.errors})
+
+        db.session.commit()
+        return jsonify({'success': 'Order placed successfully'})
         
         # handle payments for successfully place orders
 
