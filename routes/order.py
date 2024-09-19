@@ -83,8 +83,10 @@ def place_order():
 
         db.session.commit()
 
+        my_cart = Cart.query.filter_by(user_id=user_id).first()
+
         try:
-            Cart.query.filter_by(user_id=user_id).delete()
+            CartItems.query.filter_by(cart_id=my_cart.id).delete()
             db.session.commit()
         except Exception as e:
             db.session.rollback()
