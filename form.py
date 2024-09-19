@@ -126,7 +126,7 @@ class CheckoutForm(FlaskForm):
     allows users to enter checkout details
     '''
     shipping_address =  StringField('Pickup location', validators=[InputRequired(),Length(min=8, max=45, message="Must be at least 3 characters long and not more than 45.")])
-    phone_number = StringField('Phone Number', validators=[
+    phone_number = StringField('Mpesa Payment Number', validators=[
         DataRequired(),
         Regexp(r'^\+2547\d{8}$', message="Phone number must start with +2547 followed by 8 digits.")
         ])
