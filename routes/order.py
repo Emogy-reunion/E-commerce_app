@@ -74,7 +74,7 @@ def place_order():
                             order_id=order.id,
                             sneaker_id=item.sneaker_id
                             )
-                    db.session.add()
+                    db.session.add(order_item)
             except Exception as e:
                 db.session.rollback()
                 return jsonify({'error': 'An unexpected error occured!'})
@@ -82,6 +82,13 @@ def place_order():
             return jsonify({'errors': form.errors})
 
         db.session.commit()
+
+        try:
+            Cart.query.filter_by(user_id=user_id).delete()
+            db.session.commit()
+        else:
+            db.session.rollback()
+            return jsonify({'error': 'An unexpected error occured!'})
         return jsonify({'success': 'Order placed successfully'})
         
         # handle payments for successfully place orders
