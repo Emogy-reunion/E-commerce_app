@@ -50,12 +50,13 @@ def place_order():
             '''
             phone_number = form.phone_number.data
             shipping_address = form.shipping_address.data
+            total_value = float(request.form.get('total_value'))
 
             try:
                 # create the order
                 order = Order(
                         user_id=user_id,
-                        total_amount=total,
+                        total_amount=total_value,
                         status='not_paid',
                         shipping_address=shipping_address,
                         phone_number=phone_number
