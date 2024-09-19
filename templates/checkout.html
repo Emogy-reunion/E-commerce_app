@@ -39,20 +39,52 @@
 					</div>
 					<div>
 						{{ form.phone_number.label }}<br>
-						{{ form.phone_number(size=15) }}
+						{{ form.phone_number(size=15, value=cart.user.phone_number) }}
 						<p class='error' id='phone_number-error'></p>
 					</div>
-
-					<div>
-						<h3>Subtotal: <span>ksh {{ total_amount }}</span></h3>
-						<h4>Shipping fee: <span>ksh 150</span></h4>
-						<h4>TOTAL: <span>{{ total }}</span></h4>
+					
+					<div class='total'>
+						<div>
+							<h3>Subtotal:<span>ksh {{ subtotal }}</span></h3>
+							<h4>Shipping:<span>ksh 150</span></h4>
+							<h4>TOTAL:<span>ksh {{ total }}</span></h4>
+						</div>
 					</div>
 
 					<div id='button'>
 						{{ form.submit() }}
 					</div>
+				</form>
 			</div>
+
+			<div id='sneakers'>
+				{% if not cart or not cart.items %}
+					<h2 style="padding: 110px;">No items</h2>
+				{% else %}
+					{% for product in cart.items %}
+						<div class='item'>
+							<div class='image'>
+								{% if product.item.images %}
+								<img src="{{ url_for('post.send_image', filename=product.item.images[0].filename) }}" alt="product">
+								{% else %}
+								<img src="{{ url_for('post.send_image', filename='default.jpeg') }}" alt="product">
+								{% endif %}
+							</div>
+
+							<div class='size'>
+								<h5>{{ product.item.name }}</h5>
+								<p>{{ product.size }} <span class='price'>ksh {{ product.subtotal }}</span></p>
+							</div>
+
+							<div class='quantity'>
+								<h4>{{ product.quantity }}</h2>
+							</div>
+						</div>
+					{% endfor %}
+				{% endif %}
+
+			</div>
+
 		</section>
 
 	</body>
