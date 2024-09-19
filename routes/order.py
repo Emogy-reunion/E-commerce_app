@@ -86,7 +86,7 @@ def place_order():
         try:
             Cart.query.filter_by(user_id=user_id).delete()
             db.session.commit()
-        else:
+        except Exception as e:
             db.session.rollback()
             return jsonify({'error': 'An unexpected error occured!'})
         return jsonify({'success': 'Order placed successfully'})
