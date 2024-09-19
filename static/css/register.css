@@ -120,12 +120,12 @@ form {
 }
 
 form div {
-	margin: 10px 0;
+	margin: 8px 0;
 
 }
 
 form label {
-	margin: 10px 0;
+	margin-bottom: 5px;
 	color: #fff;
 }
 
@@ -144,10 +144,10 @@ input[type='password'] {
 }
 
 input[type='submit'] {
-	padding: 10px 20px;
+	padding: 10px 30px;
 	border: none;
 	color: white;
-	background-color: #0598ce;
+	background-color: #f85b10;
 	font-size: 15px;
 	cursor: pointer;
 	border-radius: 6px;
@@ -155,7 +155,7 @@ input[type='submit'] {
 
 input[type='submit']:hover {
 	background-color: #fff;
-	color: black;
+	color: #f85b10;
 	font-weight: bold;
 }
 

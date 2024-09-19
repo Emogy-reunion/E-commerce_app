@@ -170,7 +170,7 @@ class Orders(db.Model):
     user = db.relationship('Users', back_populates='orders')
     ordered_items = db.relationship('OrderItems', back_populates='order', lazy=True)
 
-    def __init__(self, user_id, total_amount, shipping_address, phone_number):
+    def __init__(self, user_id, total_amount, shipping_address, phone_number, status):
         '''
         initializes the order
         '''
@@ -178,6 +178,7 @@ class Orders(db.Model):
         self.total_amount = total_amount
         self.shipping_address = shipping_address
         self.phone_number = phone_number
+        self.status = status
 
 class OrderItems(db.Model):
     '''

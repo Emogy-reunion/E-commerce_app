@@ -19,9 +19,8 @@ def place_order():
     if the request is GET, it renders the checkout page
     If the request id POST it places the order and initiates payment process
     '''
-
-    total_amount = request.args.get('total_amount', type=float)
     user_id = current_user.id
+
     form = CheckoutForm()
 
     cart = Cart.query.options(
@@ -36,7 +35,10 @@ def place_order():
         return jsonify({'error': 'The cart is empty!'})
 
     if request.method == 'GET':
-        return render_template('checkout.html', cart=cart, total_amount=total_amount, form=form)
+        subtotal = request.args.get('total_amount', type=float)
+        shipping_fee = float(150)
+        total = subtotal + shipping_fee
+        return render_template('checkout.html', cart=cart, subtotal=subtotal, total=total, form=form)
     else:
 
         form = CheckoutForm(request.form)
@@ -47,12 +49,13 @@ def place_order():
             '''
             phone_number = form.phone_number.data
             shipping_address = form.shipping_address.data
+            total_value = float(request.form.get('total_value'))
 
             try:
                 # create the order
-                order = Order(
+                order = Orders(
                         user_id=user_id,
-                        total_amount=total_amount,
+                        total_amount=total_value,
                         status='not_paid',
                         shipping_address=shipping_address,
                         phone_number=phone_number
@@ -71,13 +74,24 @@ def place_order():
                             order_id=order.id,
                             sneaker_id=item.sneaker_id
                             )
-                    db.session.add()
-                db.session.commit()
+                    db.session.add(order_item)
             except Exception as e:
                 db.session.rollback()
                 return jsonify({'error': 'An unexpected error occured!'})
         else:
             return jsonify({'errors': form.errors})
+
+        db.session.commit()
+
+        my_cart = Cart.query.filter_by(user_id=user_id).first()
+
+        try:
+            CartItems.query.filter_by(cart_id=my_cart.id).delete()
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            return jsonify({'error': 'An unexpected error occured!'})
+        return jsonify({'success': 'Order placed successfully'})
         
         # handle payments for successfully place orders
 

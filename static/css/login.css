@@ -5,6 +5,10 @@
 	padding: 0;
 }
 
+html {
+	overflow: hidden;
+}
+
 body {	
 	margin-top: 50px;
 	width: 100%;
@@ -67,12 +71,12 @@ form {
 }
 
 form div {
-	margin: 15px 0;
+	margin: 8px 0;
 
 }
 
 form label {
-	margin: 10px 0;
+	margin-bottom: 5px;
 }
 
 input[type='text'] {
@@ -92,10 +96,10 @@ input[type='password'] {
 }
 
 input[type='submit'] {
-	padding: 10px 20px;
+	padding: 10px 30px;
 	border: none;
 	color: white;
-	background-color: #0598ce;
+	background-color: #f85b10;
 	font-size: 15px;
 	cursor: pointer;
 	border-radius: 6px;
@@ -103,7 +107,7 @@ input[type='submit'] {
 
 input[type='submit']:hover {
 	background-color: white;
-	color: black;
+	color: #f85b10;
 	font-weight: bold;
 }
 
