@@ -178,7 +178,7 @@ class Orders(db.Model):
         self.total_amount = total_amount
         self.shipping_address = shipping_address
         self.phone_number = phone_number
-        seld.status = status
+        self.status = status
 
 class OrderItems(db.Model):
     '''
