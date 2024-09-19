@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		event.preventDefault();
 
-		const total = document.getElementById('total').textContent;
+		const totalText = document.getElementById('total').textContent;
 		const totalValue = totalText.replace('ksh', '').trim();
 		console.log(totalValue);
 
