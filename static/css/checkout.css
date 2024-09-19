@@ -11,8 +11,136 @@ html {
 
 body {
 	background-color: black;
-	overflow: hidden;
-	color: #fff;
+	color: gold;
 	width: 100%;
+	overflow: hidden;
 	font-family: 'Poppins', sans-serif;
+}
+
+section {
+	margin-top: 70px;
+	width: 100%;
+	overflow: hidden;
+	display: flex;
+}
+
+#container {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 55%;
+	padding: 60px 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 100vh;
+	background-color: #b8825e;
+}
+
+form {
+	width: 70%;
+	box-sizing: border-box;
+	padding: 10px;
+	border-radius: 15px;
+}
+
+form div {
+	margin: 15px 0;
+
+}
+
+form label {
+	margin-bottom: 5px;
+	font-size: 16px;
+}
+
+input[type='text'] {
+	padding: 10px;
+	border: 1px solid #b8825e;
+	box-sizing: border-box;
+        width: 100%;
+	border-radius: 10px;
+}
+
+input[type='submit'] {
+	padding: 10px 20px;
+	width: 200px;
+	border: none;
+	color: white;
+	background-color: #f85b10;
+	font-weight: bold;
+	font-size: 15px;
+	cursor: pointer;
+	border-radius: 6px;
+}
+
+input[type='submit']:hover {
+	background-color: white;
+	color: #f85b10;
+	font-weight: bold;
+}
+
+.total {
+	width: 100%;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+}
+
+#button {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+span {
+	margin-left: 30px;
+	color: silver;
+}
+
+
+#sneakers {
+	width: 45%;
+	margin-left: 55%;
+	overflow-y: auto;
+	padding: 0 30px;
+	height: calc(100vh - 70px);
+
+}
+
+.item {
+	box-sizing: border-box;
+	padding: 10px;
+	height: 100px;
+	width: 100%;
+	display: flex;
+}
+
+.image {
+	box-sizing: border-box;
+	width: 100px;
+	height: 100%;
+}
+
+.image img {
+	width: 100%;
+	height: 100%;
+	border-radius: 3px;
+}
+
+.size {
+	width: 250px;
+	padding: 10px;
+	height: 100%;
+}
+
+.size p {
+	color: #f85b10;
+}
+
+.quantity {
+	height: 100%;
+	display: flex;
+	align-items: center;
 }
