@@ -106,9 +106,8 @@ def view_orders():
 
     # retrieve the user's orders
     orders = Orders.query.options(
-            joinedload(Orders.user).
             joinedload(Orders.ordered_items).
-            joinedload(OrderedItems.ordered_item)
+            joinedload(OrderItems.ordered_item), joinedload(Orders.user)
             ).filter_by(user_id=user_id).all()
 
     if not orders:
@@ -125,9 +124,8 @@ def admin_orders_view():
     If there are no orders, it returns None
     '''
     orders = Orders.query.options(
-            joinedload(Orders.user).
             joinedload(Orders.ordered_items).
-            joinedload(OrderedItems.ordered_item)
+            joinedload(OrderedItems.ordered_item), joinedload(Orders.user)
             ).all()
 
     if not orders:
