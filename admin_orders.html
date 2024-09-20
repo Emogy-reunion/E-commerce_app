@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang='en'>
+	<head>
+		<meta charset='utf-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+		<link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/orders.css') }}">
+		<link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/admin_nav.css') }}">
+		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+		<title>Orders</title>
+	</head>
+	<body>
+		<nav>
+			<div id='logo'>
+				<img src='/static/images/logo.png' alt='company logo'>
+			</div>
+
+			<ul>
+				<li><a href="{{ url_for('dash.guest_dashboard') }}">Home</a></li>
+				<li><a href="{{ url_for('post.men') }}">Men</a></li>
+				<li><a href="{{ url_for('post.women') }}">Women</a></li>
+				<li><a href="{{ url_for('post.unisex') }}">Unisex</a></li>
+				<li><a href="{{ url_for('order.view_orders') }}">Orders</a></li>
+			</ul>
+
+			<div id='search'>
+				<a href="{{ url_for('find.member_search_template') }}" id='find'><i class='bx bx-search'></i></a>
+				<a href="{{ url_for('cart_bp.view_cart') }}" id='cart'><img src='/static/images/cart.png' alt='profile'>
+				<a href="{{ url_for('profile.guest_profile') }}" id='profile'><img src='/static/images/account.png' alt='profile'></a>
+			</div>
+		</nav>
+
+		<section>
+			<table border='1'>
+				<thead>
+					<th>Order id</th>
+					<th>Total</th>
+					<th>Status</th>
+					<th>Shipping address</th>
+					<th>Items</th>
+				</thead>
+
+				<tbody id="orders-table">
+					
+					{% for order in orders %}
+
+        				<tr>
+						<td>{{ order.id}}</td>
+						<td>{{ order.total_amount | round(2) }}</td>
+						<td>{{ order.status }}</td>
+						<td>{{ order.shipping_address }}</td>
+						<td>
+							<button class='toggle-table'>Show Items</button>
+						</td>
+					</tr>
+
+					<tr class="items-row">
+						<td colspan="5">
+							<table class="items-table">
+								<thead>
+									<tr>
+										<th>Item Name</th>
+										<th>Quantity</th>
+										<th>Price</th>
+									</tr>
+								</thead>
+								<tbody>
+
+									{% for item in order.ordered_items %}
+									<tr>
+										<td>{{ item.ordered_item.name }}</td>
+										<td>{{ item.quantity }}</td>
+										<td>{{ item.ordered_item.price }}</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</section>
+		<script src='/static/js/orders.js'></script>
+	</body>
+</html>

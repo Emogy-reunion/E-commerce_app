@@ -123,7 +123,7 @@ def admin_orders_view():
     '''
     orders = Orders.query.options(
             joinedload(Orders.ordered_items).
-            joinedload(OrderedItems.ordered_item), joinedload(Orders.user)
+            joinedload(OrderItems.ordered_item), joinedload(Orders.user)
             ).order_by(Orders.id.desc()).all()
 
     if not orders:
