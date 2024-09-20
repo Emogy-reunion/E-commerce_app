@@ -30,8 +30,9 @@
 		<section>
 			<table border='1'>
 				<thead>
-					<th>Name</th>
 					<th>Order id</th>
+					<th>Name</th>
+					<th>Phone number</th>
 					<th>Total</th>
 					<th>Status</th>
 					<th>Shipping address</th>
@@ -44,8 +45,9 @@
 					{% for order in orders %}
 
         				<tr>
-						<td>{{ order.user.first_name }}</td>
 						<td>{{ order.id}}</td>
+						<td>{{ order.user.first_name }}</td>
+						<td>{{ order.user.phone_number }}</td>
 						<td>{{ order.total_amount | round(2) }}</td>
 						<td>{{ order.status }}</td>
 						<td>{{ order.shipping_address }}</td>
@@ -59,7 +61,7 @@
 					</tr>
 
 					<tr class="items-row">
-						<td colspan="7">
+						<td colspan="8">
 							<table class="items-table">
 								<thead>
 									<tr>
