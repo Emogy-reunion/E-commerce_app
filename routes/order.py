@@ -106,10 +106,9 @@ def view_orders():
 
     # retrieve the user's orders
     orders = Orders.query.options(
-            joinedload(Orders.user).
             joinedload(Orders.ordered_items).
-            joinedload(OrderedItems.ordered_item)
-            ).filter_by(user_id=user_id).all()
+            joinedload(OrderItems.ordered_item), joinedload(Orders.user)
+            ).filter_by(user_id=user_id).order_by(Orders.id.desc()).all()
 
     if not orders:
         return render_template('orders.html', orders=None)
@@ -125,12 +124,11 @@ def admin_orders_view():
     If there are no orders, it returns None
     '''
     orders = Orders.query.options(
-            joinedload(Orders.user).
             joinedload(Orders.ordered_items).
-            joinedload(OrderedItems.ordered_item)
-            ).all()
+            joinedload(OrderItems.ordered_item), joinedload(Orders.user)
+            ).order_by(Orders.id.desc()).all()
 
     if not orders:
-        return render_template('orders.html', orders=None)
+        return render_template('admin_orders.html', orders=None)
     else:
-        return render_template('orders.html', orders=orders)
+        return render_template('admin_orders.html', orders=orders)
