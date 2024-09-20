@@ -106,7 +106,7 @@ def view_orders():
     orders = Orders.query.options(
             joinedload(Orders.ordered_items).
             joinedload(OrderItems.ordered_item), joinedload(Orders.user)
-            ).filter_by(user_id=user_id).all()
+            ).filter_by(user_id=user_id).order_by(Orders.id.desc()).all()
 
     if not orders:
         return render_template('orders.html', orders=None)
@@ -124,7 +124,7 @@ def admin_orders_view():
     orders = Orders.query.options(
             joinedload(Orders.ordered_items).
             joinedload(OrderedItems.ordered_item), joinedload(Orders.user)
-            ).all()
+            ).order_by(Orders.id.desc()).all()
 
     if not orders:
         return render_template('orders.html', orders=None)
