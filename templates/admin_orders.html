@@ -15,28 +15,28 @@
 			</div>
 
 			<ul>
-				<li><a href="{{ url_for('dash.guest_dashboard') }}">Home</a></li>
-				<li><a href="{{ url_for('post.men') }}">Men</a></li>
-				<li><a href="{{ url_for('post.women') }}">Women</a></li>
-				<li><a href="{{ url_for('post.unisex') }}">Unisex</a></li>
-				<li><a href="{{ url_for('order.view_orders') }}">Orders</a></li>
+				<li><a href="{{ url_for('dash.admin_dashboard') }}">Home</a></li>
+				<li><a href="{{ url_for('post.upload') }}">Post</a></li>
+				<li><a href="{{ url_for('post.uploads') }}">Posts</a></li>
+				<li><a href="{{ url_for('order.admin_orders_view') }}">Orders</a></li>
 			</ul>
 
 			<div id='search'>
-				<a href="{{ url_for('find.member_search_template') }}" id='find'><i class='bx bx-search'></i></a>
-				<a href="{{ url_for('cart_bp.view_cart') }}" id='cart'><img src='/static/images/cart.png' alt='profile'>
-				<a href="{{ url_for('profile.guest_profile') }}" id='profile'><img src='/static/images/account.png' alt='profile'></a>
+				<a href="{{ url_for('find.admin_search_template') }}" id='find'><i class='bx bx-search'></i></a>
+				<a href="{{ url_for('profile.admin_profile') }}" id='profile'><img src='/static/images/account.png' alt='profile'></a>
 			</div>
 		</nav>
 
 		<section>
 			<table border='1'>
 				<thead>
+					<th>Name</th>
 					<th>Order id</th>
 					<th>Total</th>
 					<th>Status</th>
 					<th>Shipping address</th>
 					<th>Items</th>
+					<th>Update</th>
 				</thead>
 
 				<tbody id="orders-table">
@@ -44,12 +44,17 @@
 					{% for order in orders %}
 
         				<tr>
+						<td>{{ order.user.first_name }}</td>
 						<td>{{ order.id}}</td>
 						<td>{{ order.total_amount | round(2) }}</td>
 						<td>{{ order.status }}</td>
 						<td>{{ order.shipping_address }}</td>
 						<td>
 							<button class='toggle-table'>Show Items</button>
+						</td>
+
+						<td>
+                                                        <a href="{{ url_for('edit.update_order_status', order_id=order.id) }}">Update</a>
 						</td>
 					</tr>
 
