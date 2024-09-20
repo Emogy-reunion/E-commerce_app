@@ -127,6 +127,6 @@ def admin_orders_view():
             ).order_by(Orders.id.desc()).all()
 
     if not orders:
-        return render_template('orders.html', orders=None)
+        return render_template('admin_orders.html', orders=None)
     else:
-        return render_template('orders.html', orders=orders)
+        return render_template('admin_orders.html', orders=orders)
