@@ -59,13 +59,14 @@
 					</tr>
 
 					<tr class="items-row">
-						<td colspan="5">
+						<td colspan="7">
 							<table class="items-table">
 								<thead>
 									<tr>
 										<th>Item Name</th>
 										<th>Quantity</th>
 										<th>Price</th>
+										<th>Size</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -75,6 +76,7 @@
 										<td>{{ item.ordered_item.name }}</td>
 										<td>{{ item.quantity }}</td>
 										<td>{{ item.ordered_item.price }}</td>
+										<td>{{ item.size }}</td>
 									</tr>
 									{% endfor %}
 								</tbody>
