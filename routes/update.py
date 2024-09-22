@@ -81,19 +81,23 @@ def update_order_status(order_id):
     order = db.session.get(Orders, order_id)
 
     if order is None:
-        flash("Order not found.", "danger")
-        return redirect(url_for('order.admin_orders_view'))
+        return jsonify({"error": 'Order not found!'})
 
     form = UpdateOrderStatus()
+    form.status.data = order.status
 
+    if request.method == 'GET':
+        return render_template('update_orders.html', order=order, form=form)
+
+    form = UpdateOrderStatus(request.form)
     if form.validate_on_submit():
         try:
             order.status = form.status.data
-            db.session.commit()
-            flash("Order status updated successfully.", "success")
         except Exception as e:
             db.session.rollback()
-            flash("Failed to update order status.", "danger")
-        return redirect(url_for('order.admin_orders_view'))
+            return jsonify({'error': 'Failed to update. Try again!'})
 
-    return render_template('update_orders.html', order=order, form=form)
+        db.session.commit()
+        return jsonify({'success': 'Order updated successfully'})
+    else:
+        return jsonify({'errors': form.errors})
