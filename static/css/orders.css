@@ -69,3 +69,28 @@ tr.items-row td {
     display: none;
 }
 
+button {
+	padding: 5px;
+	background-color: #f85b10;
+	cursor: pointer;
+	color: #fff;
+	border: none;
+	border-radius: 10px;
+}
+
+table a {
+	text-decoration: none;
+	padding: 5px;
+	background-color: #f85b10;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 10px;
+}
+
+table a:hover, button:hover {
+	background-color: white;
+	color: #f85b10;
+}
+
