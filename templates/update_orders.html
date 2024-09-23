@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang='en'>
+	<head>
+		<meta charset='utf-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+		<link rel='stylesheet' type='text/css' href='/static/css/update_orders.css'>
+		<title>Update orders</title>
+	</head>
+	<body>
+		<div id='container'>
+			<div class='alert'>
+				<p></p>
+			</div>
+
+			<form id='update' data-orderId="{{ order.id }}" >
+				{{ form.hidden_tag() }}
+
+				<div>
+					{{ form.status.label }}<br>
+					{{ form.status() }}
+					<p class='error' id='status-error'></p>
+				</div>
+
+				<div id='button'>
+					{{ form.submit() }}
+				</div>
+			</form>
+		</div>
+		<script src='/static/js/update_orders.js'></script>
+	</body>
+</html>
