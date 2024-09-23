@@ -48,7 +48,7 @@ def place_order():
             ensures that the form data is valid
             '''
             phone_number = form.phone_number.data
-            shipping_address = form.shipping_address.data
+            shipping_address = form.shipping_address.data.lower()
             total_value = float(request.form.get('total_value'))
 
             try:
