@@ -30,6 +30,7 @@ section {
 table {
     width: 100%;
     border-collapse: collapse;
+    border: none;
 }
 
 th {
@@ -40,7 +41,8 @@ th {
 th, td {
     padding: 10px;
     text-align: left;
-    border: 1px solid #ddd;
+    /*border: 1px solid #ddd;*/
+    border: none;
 }
 
 
