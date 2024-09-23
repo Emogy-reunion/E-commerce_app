@@ -8,6 +8,7 @@ from model import db, Users, Sneakers, Cart, CartItems, Orders, OrderItems, Imag
 from form import CheckoutForm
 from flask_login import login_required, current_user
 from sqlalchemy.orm import joinedload
+from utils.pay import get_access_token, generate_password, initiate_stk_push
 
 
 order = Blueprint('order', __name__)
@@ -78,22 +79,28 @@ def place_order():
             except Exception as e:
                 db.session.rollback()
                 return jsonify({'error': 'An unexpected error occured!'})
+            
+            db.session.commit()
+
+            my_cart = Cart.query.filter_by(user_id=user_id).first()
+
+            # handle payments for successfully place orders
+            print(phone_number)
+            response = initiate_stk_push(amount=total_value, phone_number=phone_number) 
+            print(response)
+
+            if response.get('status') == 'success':
+                try:
+                    CartItems.query.filter_by(cart_id=my_cart.id).delete()
+                    db.session.commit()
+                except Exception as e:
+                    db.session.rollback()
+                    return jsonify({'error': 'An unexpected error occured!'})
+                return jsonify({'success': 'Payment initiated successfully.'})
+            else:
+                return jsonify({'error': 'Payment initiation failed.'})
         else:
             return jsonify({'errors': form.errors})
-
-        db.session.commit()
-
-        my_cart = Cart.query.filter_by(user_id=user_id).first()
-
-        try:
-            CartItems.query.filter_by(cart_id=my_cart.id).delete()
-            db.session.commit()
-        except Exception as e:
-            db.session.rollback()
-            return jsonify({'error': 'An unexpected error occured!'})
-        return jsonify({'success': 'Order placed successfully'})
-        
-        # handle payments for successfully place orders
 
 @order.route('/view_orders')
 @login_required
@@ -132,3 +139,8 @@ def admin_orders_view():
         return render_template('admin_orders.html', orders=None)
     else:
         return render_template('admin_orders.html', orders=orders)
+
+@order.route('/callback', methods=['POST'])
+def callback():
+    # Handle the callback here
+    return "Callback received"
