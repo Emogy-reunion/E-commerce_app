@@ -1,23 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-	document.getElementById('address').addEventListener('submit', (event) => {
+	document.getElementById('update').addEventListener('submit', (event) => {
 
 		event.preventDefault();
 
-		const totalText = document.getElementById('total').textContent;
-		const totalValue = totalText.replace('ksh', '').trim();
-		console.log(totalValue);
-
-
 		const form = event.target;
 		const formData = new FormData(form);
-		formData.append('total_value', totalValue);
 
-		let headers = {
+		element = document.getElementById('update');
+		orderId = element.getAttribute('data-orderId');
+
+		headers = {
 			'X-CSRFToken': form.csrf_token.value
 		}
 
-		fetch('/place_order', {
+		fetch(`/update_order_status/${orderId}`, {
 			headers,
 			method: 'POST',
 			body: formData
@@ -49,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
 				alert(data.error);
 			} else {
 				alert(data.success);
-				window.location.href = '/view_orders';
 			}
 		})
 		.catch(error => {
@@ -57,4 +53,3 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 	});
 });
-

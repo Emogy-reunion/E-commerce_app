@@ -28,9 +28,12 @@
 		</nav>
 
 		<section>
+			{% if not orders %}
+				<h3> No available orders.</h3>
+			{% else %}
 			<table border='1'>
 				<thead>
-					<th>Order id</th>
+					<th>Id</th>
 					<th>Name</th>
 					<th>Phone number</th>
 					<th>Total</th>
@@ -49,8 +52,8 @@
 						<td>{{ order.user.first_name }}</td>
 						<td>{{ order.user.phone_number }}</td>
 						<td>{{ order.total_amount | round(2) }}</td>
-						<td>{{ order.status }}</td>
-						<td>{{ order.shipping_address }}</td>
+						<td>{{ order.status | capitalize }}</td>
+						<td>{{ order.shipping_address | title }}</td>
 						<td>
 							<button class='toggle-table'>Show Items</button>
 						</td>
@@ -72,7 +75,7 @@
 									</tr>
 								</thead>
 								<tbody>
-
+									{% if order.ordered_items %}
 									{% for item in order.ordered_items %}
 									<tr>
 										<td>{{ item.ordered_item.name }}</td>
@@ -81,6 +84,7 @@
 										<td>{{ item.size }}</td>
 									</tr>
 									{% endfor %}
+									{% endif %}
 								</tbody>
 							</table>
 						</td>
@@ -89,6 +93,7 @@
 				</tbody>
 			</table>
 		</section>
+		{% endif %}
 		<script src='/static/js/orders.js'></script>
 	</body>
 </html>
