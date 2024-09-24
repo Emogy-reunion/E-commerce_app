@@ -142,5 +142,32 @@ def admin_orders_view():
 
 @order.route('/callback', methods=['POST'])
 def callback():
-    # Handle the callback here
-    return "Callback received"
+    # Safaricom sends the confirmation details in JSON format
+    data = request.get_json()
+
+    if not data:
+        return jsonify({"error": "Invalid request, JSON data missing"}), 400
+
+    try:
+        # Extracting the transaction details from the callback payload
+        result_code = data['Body']['stkCallback']['ResultCode']
+        result_desc = data['Body']['stkCallback']['ResultDesc']
+        mpesa_receipt = data['Body']['stkCallback']['CallbackMetadata']['Item'][1]['Value']
+        phone_number = data['Body']['stkCallback']['CallbackMetadata']['Item'][4]['Value']
+
+        # Check if the transaction was successful
+        if result_code == 0:
+            order = Orders.query.filter_by(phone_number=phone_number).first()
+            if order:
+                order.status = 'Paid'
+                db.session.commit()
+                return jsonify({"message": "Order payment status updated to Paid"}), 200
+            else:
+                return jsonify({"error": "Order not found for this phone number"}), 404
+        else:
+            return jsonify({"message": f"Transaction failed: {result_desc}"}), 400
+
+    except KeyError as e:
+        return jsonify({"error": f"Missing expected field {str(e)} in the callback"}), 400
+    except Exception as e:
+        return jsonify({"error": f"An error occurred: {str(e)}"}), 500
