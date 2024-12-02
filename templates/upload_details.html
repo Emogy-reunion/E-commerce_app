@@ -3,13 +3,12 @@
 	<head>
 		<meta charset='utf-8'>
 		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-		<link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/upload_details.css') }}">
+		<link rel='stylesheet' type='text/css' href="{{ url_for('static', filename='css/product_details.css') }}">
 		<link href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
 		<title>Details</title>
 	</head>
 
 	<body>
-		<h1>{{ sneaker.name | title }}</h1>
 		<section>
 			<div id='slider'>
 				<div class="slider-container">
@@ -29,6 +28,7 @@
 			</div>
 
 			<div id='details'>
+				<h1>{{ sneaker.name | title }}</h1>
 				<h2>Price</h2>
 				<h5>{{ sneaker.price }}</h5>
 				

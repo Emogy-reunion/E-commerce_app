@@ -85,10 +85,7 @@ def place_order():
             my_cart = Cart.query.filter_by(user_id=user_id).first()
 
             # handle payments for successfully place orders
-            print(phone_number)
             response = initiate_stk_push(amount=total_value, phone_number=phone_number) 
-            print(response)
-
             if response.get('status') == 'success':
                 try:
                     CartItems.query.filter_by(cart_id=my_cart.id).delete()
@@ -98,7 +95,9 @@ def place_order():
                     return jsonify({'error': 'An unexpected error occured!'})
                 return jsonify({'success': 'Payment initiated successfully.'})
             else:
-                return jsonify({'error': 'Payment initiation failed.'})
+                CartItems.query.filter_by(cart_id=my_cart.id).delete()
+                db.session.commit()
+                return jsonify({'error': 'Payment initiation failed. Order placed but not paid.'})
         else:
             return jsonify({'errors': form.errors})
 

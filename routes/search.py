@@ -87,11 +87,11 @@ def member_search():
     allows users to filter products based on certain conditions
     '''
 
-    name = request.args.get('name')
+    name = request.args.get('name').lower()
     min_price = request.args.get('min_price')
     max_price = request.args.get('max_price')
     gender = request.args.get('gender')
-    brand = request.args.get('brand')
+    brand = request.args.get('brand').lower()
 
     # build the base query
     query = Sneakers.query
@@ -145,11 +145,11 @@ def guest_search():
     allows users to filter products based on certain conditions
     '''
 
-    name = request.args.get('name')
+    name = request.args.get('name').lower()
     min_price = request.args.get('min_price')
     max_price = request.args.get('max_price')
     gender = request.args.get('gender')
-    brand = request.args.get('brand')
+    brand = request.args.get('brand').lower()
 
     # build the base query
     query = Sneakers.query
