@@ -8,7 +8,6 @@
 		<title>Details</title>
 	</head>
 	<body>
-		<h1>{{ sneaker.name | title }}</h1>
 		<section>
 			<div id='slider'>
 				<div class="slider-container">
@@ -28,7 +27,7 @@
 			</div>
 
 			<div id='details'>
-
+				<h1>{{ sneaker.name | title }}</h1>
 				<form id='add' data-sneakerID="{{ sneaker.id }}">
 					{{ form.hidden_tag() }}
 					<div>

@@ -33,10 +33,11 @@ section h1 {
 #container {
 	margin-top: 20px;
 	box-sizing: border-box;
-	width: 900px;
+	width: 95%;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 15px;
+	margin-bottom: 20px;
 }
 
 .item {

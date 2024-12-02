@@ -47,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				}
 			} else if (data.error) {
 				alert(data.error);
+				window.location.href = '/view_orders';
 			} else {
 				alert(data.success);
 				window.location.href = '/view_orders';
