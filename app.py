@@ -4,6 +4,7 @@ Initializes the configuration settings
 '''
 from flask import Flask
 from create_app import create_app
+from config import Config
 from model import Users, db, bcrypt, Sneakers, Images, Cart, CartItems, Orders, OrderItems
 from routes.authentication import auth
 from routes.verification import verify
@@ -76,4 +77,5 @@ create_initial_admin()
 
 
 if __name__ == "__main__":
+    Config.ensure_upload_folder()
     app.run(debug=True)
